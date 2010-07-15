@@ -1,0 +1,524 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resource version="2.3.0.1" xmlns="http://www.wxwidgets.org/wxxrc">
+    <object class="wxFrame" name="pca_vehicle_frame">
+        <style>wxDEFAULT_FRAME_STYLE</style>
+        <size>1000,600</size>
+        <title>PCA Vehicle GUI</title>
+        <object class="wxMenuBar" name="mainmenu">
+            <object class="wxMenu">
+                <label>File</label>
+                <object class="wxMenuItem" name="menu_load_image">
+                    <label>Load Image\tAlt+I</label>
+                </object>
+                <object class="wxMenuItem" name="menu_load_video">
+                    <label>Load Video\tAlt+V</label>
+                </object>
+                <object class="wxMenuItem" name="menu_load_camera">
+                    <label>Load Camera\tAlt+C</label>
+                </object>
+                <object class="wxMenuItem" name="menu_load_mesh">
+                    <label>Load Mesh\tAlt+M</label>
+                </object>
+                <object class="wxMenuItem" name="menu_load_truth_mesh">
+                    <label>Load Truth Mesh</label>
+                </object>
+                <object class="wxMenuItem" name="menu_load_pca">
+                    <label>Load PCA\tAlt+A</label>
+                </object>
+                <object class="wxMenuItem" name="menu_load_parts">
+                    <label>Load Parts\tAlt+P</label>
+                </object>
+                <object class="separator">
+                </object>
+                <object class="wxMenuItem" name="menu_save_camera">
+                    <label>Save Camera</label>
+                </object>
+                <object class="wxMenuItem" name="menu_save_3d_parts">
+                    <label>Save 3D Parts</label>
+                </object>
+                <object class="wxMenuItem" name="menu_save_svg">
+                    <label>Save as SVG</label>
+                </object>
+                <object class="wxMenuItem" name="menu_save_edge_image">
+                    <label>Save Edge Image</label>
+                </object>
+                <object class="wxMenuItem" name="menu_save_video_frame">
+                    <label>Save Video Frame</label>
+                </object>
+                <object class="wxMenuItem" name="menu_save_as_ps">
+                    <label>Save as PS</label>
+                </object>
+                <object class="separator">
+                </object>
+                <object class="wxMenuItem" name="menu_quit">
+                    <label>Quit\tCtrl+Q</label>
+                </object>
+            </object>
+            <object class="wxMenu">
+                <label>Options</label>
+                <object class="wxMenu" name="menu_vehicle_model">
+                    <label>Vehicle Model</label>
+                    <object class="wxMenuItem" name="menu_use_dodec">
+                        <label>Dodecahedral</label>
+                        <checkable>1</checkable>
+                        <checked>0</checked>
+                    </object>
+                    <object class="wxMenuItem" name="menu_use_ferryman">
+                        <label>Ferryman</label>
+                        <checkable>1</checkable>
+                        <checked>0</checked>
+                    </object>
+                    <object class="wxMenuItem" name="menu_use_detailed1">
+                        <label>Detailed 1</label>
+                        <checkable>1</checkable>
+                        <checked>0</checked>
+                    </object>
+                    <object class="wxMenuItem" name="menu_use_detailed2">
+                        <label>Detailed 2</label>
+                        <checkable>1</checkable>
+                        <checked>0</checked>
+                    </object>
+                    <object class="wxMenuItem" name="menu_use_detailed3">
+                        <label>Detailed 3</label>
+                        <checkable>1</checkable>
+                        <checked>1</checked>
+                    </object>
+                </object>
+                <object class="wxMenu" name="ID_MENU">
+                    <label>Scale Camera</label>
+                    <object class="wxMenuItem" name="menu_scale_ft2m">
+                        <label>Feet to Meters</label>
+                    </object>
+                </object>
+                <object class="wxMenuItem" name="menu_set_camera_rel">
+                    <label>Set Camera Relative</label>
+                </object>
+                <object class="wxMenuItem" name="menu_set_mode_video">
+                    <label>Video Mode</label>
+                    <checkable>1</checkable>
+                </object>
+                <object class="wxMenuItem" name="menu_enable_tracking">
+                    <label>Enable Tracking</label>
+                    <checkable>1</checkable>
+                    <checked>1</checked>
+                </object>
+            </object>
+            <object class="wxMenu" name="actions">
+                <label>Actions</label>
+                <object class="wxMenuItem" name="menu_compute_error">
+                    <label>Compute Error</label>
+                </object>
+                <object class="wxMenu" name="ID_MENU1">
+                    <label>Screen Capture Video</label>
+                    <object class="wxMenuItem" name="menu_capture_3d_view">
+                        <label>3D View</label>
+                        <checkable>1</checkable>
+                    </object>
+                    <object class="wxMenuItem" name="menu_capture_proj_view">
+                        <label>Projection View</label>
+                        <checkable>1</checkable>
+                    </object>
+                </object>
+                <object class="wxMenuItem" name="menu_run_animation">
+                    <label>Run Animation</label>
+                </object>
+                <object class="wxMenuItem" name="menu_run_track_results">
+                    <label>Run Tracking Results</label>
+                </object>
+            </object>
+            <object class="wxMenu">
+                <label>View</label>
+                <object class="wxMenuItem" name="menu_show_edges">
+                    <label>Show Edges</label>
+                    <checkable>1</checkable>
+                    <checked>0</checked>
+                </object>
+                <object class="wxMenuItem" name="menu_show_axes">
+                    <label>Show Axes</label>
+                    <checkable>1</checkable>
+                    <checked>1</checked>
+                </object>
+                <object class="wxMenuItem" name="menu_draw_reprojected">
+                    <label>Draw Reprojected</label>
+                    <checkable>1</checkable>
+                    <checked>0</checked>
+                </object>
+                <object class="wxMenuItem" name="menu_draw_matches">
+                    <label>Draw Matches</label>
+                </object>
+                <object class="wxMenuItem" name="menu_draw_sil_matches">
+                    <label>Draw Silhouette Matches</label>
+                </object>
+                <object class="wxMenuItem" name="menu_draw_jacobians">
+                    <label>Draw Jacobians</label>
+                </object>
+            </object>
+            <object class="wxMenu">
+                <label>Help</label>
+                <object class="wxMenuItem" name="menu_about">
+                    <label>About</label>
+                </object>
+            </object>
+        </object>
+        <object class="wxSplitterWindow" name="ID_SPLITTERWINDOW">
+            <style>wxSP_BORDER|wxSP_3DSASH|wxSP_LIVE_UPDATE|wxNO_BORDER</style>
+            <orientation>vertical</orientation>
+            <sashpos>250</sashpos>
+            <minsize>1</minsize>
+            <object class="wxPanel" name="ID_PANEL">
+                <style>wxSUNKEN_BORDER|wxTAB_TRAVERSAL</style>
+                <object class="wxBoxSizer">
+                    <orient>wxVERTICAL</orient>
+                    <object class="sizeritem">
+                        <flag>wxGROW|wxALL</flag>
+                        <border>5</border>
+                        <option>1</option>
+                        <object class="wxSliderPanel" name="slider_panel">
+                        </object>
+                    </object>
+                    <object class="sizeritem">
+                        <flag>wxGROW|wxALL</flag>
+                        <border>5</border>
+                        <object class="wxPanel" name="ID_PANEL1">
+                            <style>wxSUNKEN_BORDER|wxTAB_TRAVERSAL</style>
+                            <object class="wxBoxSizer">
+                                <orient>wxVERTICAL</orient>
+                                <object class="sizeritem">
+                                    <flag>wxALIGN_CENTER_HORIZONTAL|wxALL</flag>
+                                    <border>5</border>
+                                    <object class="wxBoxSizer">
+                                        <orient>wxHORIZONTAL</orient>
+                                        <object class="sizeritem">
+                                            <flag>wxALIGN_CENTER_VERTICAL|wxLEFT|wxRIGHT|wxTOP</flag>
+                                            <border>5</border>
+                                            <object class="wxButton" name="clear_pca_button">
+                                                <label>Clear PCA</label>
+                                            </object>
+                                        </object>
+                                        <object class="sizeritem">
+                                            <flag>wxALIGN_CENTER_VERTICAL|wxLEFT|wxTOP</flag>
+                                            <border>3</border>
+                                            <object class="wxStaticText" name="wxID_STATIC">
+                                                <style>wxALIGN_RIGHT</style>
+                                                <label>save</label>
+                                            </object>
+                                        </object>
+                                        <object class="sizeritem">
+                                            <flag>wxALIGN_CENTER_VERTICAL|wxRIGHT|wxTOP</flag>
+                                            <border>5</border>
+                                            <object class="wxSpinCtrl" name="num_to_save_spin">
+                                                <style>wxSP_ARROW_KEYS</style>
+                                                <value>0</value>
+                                                <min>0</min>
+                                                <max>100</max>
+                                            </object>
+                                        </object>
+                                    </object>
+                                </object>
+                                <object class="sizeritem">
+                                    <flag>wxGROW|wxALL</flag>
+                                    <border>5</border>
+                                    <object class="wxStaticLine" name="wxID_STATIC">
+                                        <style>wxLI_HORIZONTAL</style>
+                                    </object>
+                                </object>
+                                <object class="sizeritem">
+                                    <flag>wxALIGN_CENTER_HORIZONTAL|wxALL</flag>
+                                    <border>5</border>
+                                    <object class="wxCheckBox" name="pca_checkbox">
+                                        <label>Enable PCA optimization</label>
+                                        <checked>1</checked>
+                                    </object>
+                                </object>
+                                <object class="sizeritem">
+                                    <flag>wxALIGN_CENTER_HORIZONTAL|wxALL</flag>
+                                    <border>5</border>
+                                    <object class="wxFlexGridSizer">
+                                        <cols>4</cols>
+                                        <rows>3</rows>
+                                        <vgap>0</vgap>
+                                        <hgap>0</hgap>
+                                        <object class="sizeritem">
+                                            <flag>wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL|wxLEFT|wxBOTTOM</flag>
+                                            <border>3</border>
+                                            <object class="wxCheckBox" name="tx_checkbox">
+                                                <label>Tx</label>
+                                                <checked>1</checked>
+                                            </object>
+                                        </object>
+                                        <object class="sizeritem">
+                                            <flag>wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL|wxLEFT|wxRIGHT|wxBOTTOM</flag>
+                                            <border>3</border>
+                                            <option>1</option>
+                                            <object class="wxTextCtrl" name="tx_text">
+                                                <size>50,-1</size>
+                                                <style>wxTE_PROCESS_ENTER</style>
+                                                <value>0</value>
+                                            </object>
+                                        </object>
+                                        <object class="sizeritem">
+                                            <flag>wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL|wxLEFT|wxBOTTOM</flag>
+                                            <border>3</border>
+                                            <object class="wxCheckBox" name="rx_checkbox">
+                                                <label>Rx</label>
+                                                <checked>0</checked>
+                                            </object>
+                                        </object>
+                                        <object class="sizeritem">
+                                            <flag>wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL|wxLEFT|wxRIGHT|wxBOTTOM</flag>
+                                            <border>3</border>
+                                            <option>1</option>
+                                            <object class="wxTextCtrl" name="rx_text">
+                                                <size>50,-1</size>
+                                                <style>wxTE_PROCESS_ENTER</style>
+                                                <enabled>0</enabled>
+                                                <value>0</value>
+                                            </object>
+                                        </object>
+                                        <object class="sizeritem">
+                                            <flag>wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL|wxLEFT|wxBOTTOM</flag>
+                                            <border>3</border>
+                                            <object class="wxCheckBox" name="ty_checkbox">
+                                                <label>Ty</label>
+                                                <checked>1</checked>
+                                            </object>
+                                        </object>
+                                        <object class="sizeritem">
+                                            <flag>wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL|wxLEFT|wxRIGHT|wxBOTTOM</flag>
+                                            <border>3</border>
+                                            <option>1</option>
+                                            <object class="wxTextCtrl" name="ty_text">
+                                                <size>50,-1</size>
+                                                <style>wxTE_PROCESS_ENTER</style>
+                                                <value>0</value>
+                                            </object>
+                                        </object>
+                                        <object class="sizeritem">
+                                            <flag>wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL|wxLEFT|wxBOTTOM</flag>
+                                            <border>3</border>
+                                            <object class="wxCheckBox" name="ry_checkbox">
+                                                <label>Ry</label>
+                                                <checked>0</checked>
+                                            </object>
+                                        </object>
+                                        <object class="sizeritem">
+                                            <flag>wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL|wxLEFT|wxRIGHT|wxBOTTOM</flag>
+                                            <border>3</border>
+                                            <option>1</option>
+                                            <object class="wxTextCtrl" name="ry_text">
+                                                <size>50,-1</size>
+                                                <style>wxTE_PROCESS_ENTER</style>
+                                                <enabled>0</enabled>
+                                                <value>0</value>
+                                            </object>
+                                        </object>
+                                        <object class="sizeritem">
+                                            <flag>wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL|wxLEFT|wxBOTTOM</flag>
+                                            <border>3</border>
+                                            <object class="wxCheckBox" name="tz_checkbox">
+                                                <label>Tz</label>
+                                                <checked>0</checked>
+                                            </object>
+                                        </object>
+                                        <object class="sizeritem">
+                                            <flag>wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL|wxLEFT|wxRIGHT|wxBOTTOM</flag>
+                                            <border>3</border>
+                                            <option>1</option>
+                                            <object class="wxTextCtrl" name="tz_text">
+                                                <size>50,-1</size>
+                                                <style>wxTE_PROCESS_ENTER</style>
+                                                <enabled>0</enabled>
+                                                <value>0</value>
+                                            </object>
+                                        </object>
+                                        <object class="sizeritem">
+                                            <flag>wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL|wxLEFT|wxBOTTOM</flag>
+                                            <border>3</border>
+                                            <object class="wxCheckBox" name="rz_checkbox">
+                                                <label>Rz</label>
+                                                <checked>1</checked>
+                                            </object>
+                                        </object>
+                                        <object class="sizeritem">
+                                            <flag>wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL|wxLEFT|wxRIGHT|wxBOTTOM</flag>
+                                            <border>3</border>
+                                            <option>1</option>
+                                            <object class="wxTextCtrl" name="rz_text">
+                                                <size>50,-1</size>
+                                                <style>wxTE_PROCESS_ENTER</style>
+                                                <value>0</value>
+                                            </object>
+                                        </object>
+                                    </object>
+                                </object>
+                                <object class="sizeritem">
+                                    <flag>wxALIGN_CENTER_HORIZONTAL|wxLEFT|wxRIGHT|wxBOTTOM</flag>
+                                    <border>2</border>
+                                    <object class="wxBoxSizer">
+                                        <orient>wxHORIZONTAL</orient>
+                                        <object class="sizeritem">
+                                            <flag>wxALIGN_CENTER_VERTICAL|wxALL</flag>
+                                            <border>3</border>
+                                            <object class="wxStaticText" name="wxID_STATIC">
+                                                <label>L</label>
+                                            </object>
+                                        </object>
+                                        <object class="sizeritem">
+                                            <flag>wxALIGN_CENTER_VERTICAL|wxALL</flag>
+                                            <border>2</border>
+                                            <object class="wxTextCtrl" name="lambda_text">
+                                                <size>50,-1</size>
+                                                <value>1.0</value>
+                                            </object>
+                                        </object>
+                                        <object class="sizeritem">
+                                            <flag>wxALIGN_CENTER_VERTICAL|wxALL</flag>
+                                            <border>3</border>
+                                            <object class="wxStaticText" name="wxID_STATIC">
+                                                <label>S</label>
+                                            </object>
+                                        </object>
+                                        <object class="sizeritem">
+                                            <flag>wxALIGN_CENTER_VERTICAL|wxALL</flag>
+                                            <border>2</border>
+                                            <object class="wxTextCtrl" name="edge_scale_text">
+                                                <size>50,-1</size>
+                                                <value>1.0</value>
+                                            </object>
+                                        </object>
+                                        <object class="sizeritem">
+                                            <flag>wxALIGN_CENTER_VERTICAL|wxLEFT|wxTOP|wxBOTTOM</flag>
+                                            <border>4</border>
+                                            <object class="wxStaticText" name="wxID_STATIC">
+                                                <label>N</label>
+                                            </object>
+                                        </object>
+                                        <object class="sizeritem">
+                                            <flag>wxALIGN_CENTER_VERTICAL</flag>
+                                            <border>2</border>
+                                            <object class="wxSpinCtrl" name="num_itr_spin">
+                                                <tooltip>Number of iterations to run</tooltip>
+                                                <help>Number of iterations to run</help>
+                                                <style>wxSP_ARROW_KEYS</style>
+                                                <value>50</value>
+                                                <min>1</min>
+                                                <max>100</max>
+                                            </object>
+                                        </object>
+                                    </object>
+                                </object>
+                                <object class="sizeritem">
+                                    <flag>wxALIGN_CENTER_HORIZONTAL|wxLEFT|wxRIGHT</flag>
+                                    <border>2</border>
+                                    <object class="wxBoxSizer">
+                                        <orient>wxHORIZONTAL</orient>
+                                        <object class="sizeritem">
+                                            <flag>wxALIGN_CENTER_VERTICAL|wxRIGHT</flag>
+                                            <border>2</border>
+                                            <object class="wxButton" name="fit_model_button">
+                                                <label>Fit Vehicle to Image</label>
+                                            </object>
+                                        </object>
+                                    </object>
+                                </object>
+                                <object class="sizeritem">
+                                    <flag>wxGROW|wxALL</flag>
+                                    <border>5</border>
+                                    <object class="wxStaticLine" name="wxID_STATIC">
+                                        <style>wxLI_HORIZONTAL</style>
+                                    </object>
+                                </object>
+                                <object class="sizeritem">
+                                    <flag>wxALIGN_CENTER_HORIZONTAL|wxALL</flag>
+                                    <border>5</border>
+                                    <object class="wxStaticBoxSizer" name="wxID_ANY">
+                                        <orient>wxVERTICAL</orient>
+                                        <label>Interaction Mode</label>
+                                        <object class="sizeritem">
+                                            <flag>wxALIGN_LEFT|wxALL</flag>
+                                            <border>5</border>
+                                            <object class="wxRadioButton" name="radio_interaction_none">
+                                                <style>wxRB_GROUP</style>
+                                                <label>None</label>
+                                                <value>1</value>
+                                            </object>
+                                        </object>
+                                        <object class="sizeritem">
+                                            <flag>wxALIGN_LEFT|wxALL</flag>
+                                            <border>5</border>
+                                            <object class="wxRadioButton" name="radio_interaction_move">
+                                                <label>Move Vehicle</label>
+                                                <value>0</value>
+                                            </object>
+                                        </object>
+                                    </object>
+                                </object>
+                            </object>
+                        </object>
+                    </object>
+                </object>
+            </object>
+            <object class="wxSplitterWindow" name="ID_SPLITTERWINDOW1">
+                <style>wxSP_LIVE_UPDATE|wxNO_BORDER</style>
+                <orientation>horizontal</orientation>
+                <sashpos>200</sashpos>
+                <minsize>100</minsize>
+                <gravity>0.25</gravity>
+                <object class="wxSplitterWindow" name="ID_SPLITTERWINDOW2">
+                    <style>wxSP_LIVE_UPDATE|wxNO_BORDER</style>
+                    <orientation>vertical</orientation>
+                    <sashpos>200</sashpos>
+                    <minsize>100</minsize>
+                    <gravity>0.25</gravity>
+                    <object class="vgui_wx_adaptor" name="vgui_adaptor1">
+                    </object>
+                    <object class="vgui_wx_adaptor" name="vgui_adaptor2">
+                    </object>
+                </object>
+                <object class="wxPanel" name="ID_PANEL2">
+                    <style>wxTAB_TRAVERSAL</style>
+                    <object class="wxBoxSizer">
+                        <orient>wxVERTICAL</orient>
+                        <object class="sizeritem">
+                            <flag>wxGROW</flag>
+                            <border>0</border>
+                            <option>1</option>
+                            <object class="vgui_wx_adaptor" name="vgui_adaptor3">
+                            </object>
+                        </object>
+                        <object class="sizeritem">
+                            <flag>wxGROW|wxALL</flag>
+                            <border>1</border>
+                            <object class="wxPanel" name="video_panel">
+                                <style>wxTAB_TRAVERSAL</style>
+                                <object class="wxBoxSizer">
+                                    <orient>wxHORIZONTAL</orient>
+                                    <object class="sizeritem">
+                                        <flag>wxALIGN_CENTER_VERTICAL|wxALL</flag>
+                                        <border>3</border>
+                                        <option>1</option>
+                                        <object class="wxVideoControl" name="video_control">
+                                        </object>
+                                    </object>
+                                    <object class="sizeritem">
+                                        <flag>wxALIGN_CENTER_VERTICAL|wxALL</flag>
+                                        <border>3</border>
+                                        <object class="wxCheckBox" name="video_frame_active">
+                                            <label>active</label>
+                                            <checked>1</checked>
+                                        </object>
+                                    </object>
+                                </object>
+                            </object>
+                        </object>
+                    </object>
+                </object>
+            </object>
+        </object>
+        <object class="wxStatusBar" name="statusbar">
+            <style>wxST_SIZEGRIP|wxNO_BORDER</style>
+            <fields>2</fields>
+            <widths></widths>
+        </object>
+    </object>
+</resource>
