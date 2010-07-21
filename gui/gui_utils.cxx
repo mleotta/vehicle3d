@@ -9,7 +9,7 @@
 // \file
 
 #include "gui_utils.h"
-#include <gl2ps/gl2ps.h>
+#include <gl2ps.h>
 #include <vgui/vgui.h>
 #include <vgui/vgui_tableau.h>
 #include <vgui/vgui_dialog.h>

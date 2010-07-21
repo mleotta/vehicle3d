@@ -8,10 +8,10 @@ PROJECT(pca_vehicle_wxgui)
 
 FIND_PACKAGE(wxWidgets COMPONENTS base core gl xrc)
 find_package(gl2ps)
+include_directories(${GL2PS_INCLUDE_DIR})
 IF(wxWidgets_FOUND)
 
   INCLUDE( ${wxWidgets_USE_FILE} )
-
 
   IF(VXL_VGUI_WX_FOUND)
 
