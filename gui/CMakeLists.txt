@@ -43,25 +43,27 @@ IF(wxWidgets_FOUND)
       PROPERTIES
       MACOSX_PACKAGE_LOCATION Resources
     )
-    
-    IF(APPLE)
+
+
+      
+    if (APPLE)
       # use CoreFoundation to locate the default files in the bundle
       INCLUDE_DIRECTORIES(/System/Library/Frameworks/CoreFoundation.framework/Headers/)
-    ELSEIF(APPLE)
+    else (APPLE)
       # copy the default files to the binary directory
       CONFIGURE_FILE( ${pca_vehicle_wxgui_SOURCE_DIR}/default1.pca
-                      ${pca_vehicle_wxgui_BINARY_DIR}/default1.pca COPY_ONLY )
+                      ${RUNTIME_OUTPUT_DIRECTORY}/default1.pca COPY_ONLY )
       CONFIGURE_FILE( ${pca_vehicle_wxgui_SOURCE_DIR}/default2.pca
-                      ${pca_vehicle_wxgui_BINARY_DIR}/default2.pca COPY_ONLY )
+                      ${RUNTIME_OUTPUT_DIRECTORY}/default2.pca COPY_ONLY )
       CONFIGURE_FILE( ${pca_vehicle_wxgui_SOURCE_DIR}/default3.pca
-                      ${pca_vehicle_wxgui_BINARY_DIR}/default3.pca COPY_ONLY )
+                      ${RUNTIME_OUTPUT_DIRECTORY}/default3.pca COPY_ONLY )
       CONFIGURE_FILE( ${pca_vehicle_wxgui_SOURCE_DIR}/default_dodec.pca
-                      ${pca_vehicle_wxgui_BINARY_DIR}/default_dodec.pca COPY_ONLY )
+                      ${RUNTIME_OUTPUT_DIRECTORY}/default_dodec.pca COPY_ONLY )
       CONFIGURE_FILE( ${pca_vehicle_wxgui_SOURCE_DIR}/default_ferryman.pca
-                      ${pca_vehicle_wxgui_BINARY_DIR}/default_ferryman.pca COPY_ONLY )
+                      ${RUNTIME_OUTPUT_DIRECTORY}/default_ferryman.pca COPY_ONLY )
       CONFIGURE_FILE( ${pca_vehicle_wxgui_SOURCE_DIR}/default.parts
-                      ${pca_vehicle_wxgui_BINARY_DIR}/default.parts COPY_ONLY )
-    ENDIF(APPLE)
+                      ${RUNTIME_OUTPUT_DIRECTORY}/default.parts COPY_ONLY )
+    endif (APPLE)
 
     
     WXWIDGETS_ADD_RESOURCES(pca_vehicle_wxgui_sources pca_vehicle.xrc)
