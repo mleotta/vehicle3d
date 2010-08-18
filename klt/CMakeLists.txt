@@ -1,3 +1,13 @@
+
+#          Copyright Matthew Leotta 2006 - 2010.
+# Distributed under the Boost Software License, Version 1.0.
+#    (See accompanying file ../LICENSE_1_0.txt or copy at
+#          http://www.boost.org/LICENSE_1_0.txt)
+#
+# Note: The rest of the code in this directory has a separate Copyright.
+#       See the the accompanying file README 
+#       Only this CMakeLists.txt file was added to aid compilation.
+
 # klt/CMakeLists.txt
 
 set(klt_sources
