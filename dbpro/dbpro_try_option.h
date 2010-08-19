@@ -1,4 +1,4 @@
-// This is basic/dbpro/dbpro_try_option.h
+// This is dbpro/dbpro_try_option.h
 #ifndef dbpro_try_option_h_
 #define dbpro_try_option_h_
 
@@ -7,6 +7,11 @@
 // \brief A filter that transmits the first non-failing input
 // \author Matt Leotta
 // \date 10/17/06
+//
+//          Copyright Matthew Leotta 2006 - 2010.
+// Distributed under the Boost Software License, Version 1.0.
+//    (See accompanying file ../LICENSE_1_0.txt or copy at
+//          http://www.boost.org/LICENSE_1_0.txt)
 //
 // \verbatim
 //  Modifications

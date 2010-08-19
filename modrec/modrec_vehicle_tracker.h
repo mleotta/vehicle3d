@@ -1,4 +1,4 @@
-// This is mleotta/gui/pca_vehicle/modrec_vehicle_tracker.h
+// This is modrec/modrec_vehicle_tracker.h
 #ifndef modrec_vehicle_tracker_h_
 #define modrec_vehicle_tracker_h_
 //=========================================================================
@@ -7,6 +7,11 @@
 // \brief manager vehicle tracking processes
 // \author Matt Leotta (mleotta)
 // \date 04/20/2009
+//
+//          Copyright Matthew Leotta 2006 - 2010.
+// Distributed under the Boost Software License, Version 1.0.
+//    (See accompanying file ../LICENSE_1_0.txt or copy at
+//          http://www.boost.org/LICENSE_1_0.txt)
 //
 // \verbatim
 //  Modifications

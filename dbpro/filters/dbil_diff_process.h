@@ -1,4 +1,4 @@
-// This is basic/dbil/pro/dbil_diff_process.h
+// This is dbpro/filters/dbil_diff_process.h
 #ifndef dbil_diff_process_h_
 #define dbil_diff_process_h_
 
@@ -7,6 +7,11 @@
 // \brief Process that computes absolute difference between images
 // \author Matt Leotta (mleotta@lems.brown.edu)
 // \date 12/21/04
+//
+//          Copyright Matthew Leotta 2006 - 2010.
+// Distributed under the Boost Software License, Version 1.0.
+//    (See accompanying file ../../LICENSE_1_0.txt or copy at
+//          http://www.boost.org/LICENSE_1_0.txt)
 //
 // \verbatim
 //  Modifications

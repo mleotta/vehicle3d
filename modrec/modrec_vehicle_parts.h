@@ -1,4 +1,4 @@
-// This is contrib/mleotta/modrec/modrec_vehicle_parts.h
+// This is modrec/modrec_vehicle_parts.h
 #ifndef modrec_vehicle_parts_h_
 #define modrec_vehicle_parts_h_
 
@@ -7,6 +7,11 @@
 // \brief Functions involving the vehicle parts texture map
 // \author Matt Leotta (mleotta@lems.brown.edu)
 // \date 7/9/08
+//
+//          Copyright Matthew Leotta 2006 - 2010.
+// Distributed under the Boost Software License, Version 1.0.
+//    (See accompanying file ../LICENSE_1_0.txt or copy at
+//          http://www.boost.org/LICENSE_1_0.txt)
 //
 // \verbatim
 //  Modifications

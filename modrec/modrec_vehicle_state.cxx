@@ -1,8 +1,13 @@
-// This is mleotta/gui/pca_vehicle/modrec_vehicle_state.cxx
+// This is modrec/modrec_vehicle_state.cxx
 //=========================================================================
 //:
 // \file
 // \brief The state of a PCA vehicle for shape estimation while tracking
+//
+//          Copyright Matthew Leotta 2006 - 2010.
+// Distributed under the Boost Software License, Version 1.0.
+//    (See accompanying file ../LICENSE_1_0.txt or copy at
+//          http://www.boost.org/LICENSE_1_0.txt)
 //
 //=========================================================================
 

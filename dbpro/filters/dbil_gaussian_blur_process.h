@@ -1,4 +1,4 @@
-// This is basic/dbil/pro/dbil_gaussian_blur_process.h
+// This is dbpro/filters/dbil_gaussian_blur_process.h
 #ifndef dbil_gaussian_blur_process_h_
 #define dbil_gaussian_blur_process_h_
 
@@ -7,6 +7,11 @@
 // \brief A process that smooths an image with a Gaussian filter
 // \author Matt Leotta
 // \date 12/20/04
+//
+//          Copyright Matthew Leotta 2006 - 2010.
+// Distributed under the Boost Software License, Version 1.0.
+//    (See accompanying file ../../LICENSE_1_0.txt or copy at
+//          http://www.boost.org/LICENSE_1_0.txt)
 //
 // \verbatim
 //  Modifications

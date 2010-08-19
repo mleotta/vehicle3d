@@ -1,4 +1,4 @@
-// This is contrib/mleotta/modrec/modrec_vehicle_mesh.h
+// This is modrec/modrec_vehicle_mesh.h
 #ifndef modrec_vehicle_mesh_h_
 #define modrec_vehicle_mesh_h_
 
@@ -7,6 +7,11 @@
 // \brief Functions for generating and manipulated the vehicle mesh
 // \author Matt Leotta (mleotta@lems.brown.edu)
 // \date 5/8/08
+//
+//          Copyright Matthew Leotta 2006 - 2010.
+// Distributed under the Boost Software License, Version 1.0.
+//    (See accompanying file ../LICENSE_1_0.txt or copy at
+//          http://www.boost.org/LICENSE_1_0.txt)
 //
 // \verbatim
 //  Modifications

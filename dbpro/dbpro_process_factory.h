@@ -1,4 +1,4 @@
-// This is basic/dbpro/dbpro_process_factory.h
+// This is dbpro/dbpro_process_factory.h
 #ifndef dbpro_process_factory_h_
 #define dbpro_process_factory_h_
 //--------------------------------------------------------------------------------
@@ -8,6 +8,11 @@
 //
 // \author Matt Leotta (mleotta@lems.brown.edu)
 // \date 5/31/06
+//
+//          Copyright Matthew Leotta 2006 - 2010.
+// Distributed under the Boost Software License, Version 1.0.
+//    (See accompanying file ../LICENSE_1_0.txt or copy at
+//          http://www.boost.org/LICENSE_1_0.txt)
 //
 // \verbatim
 //  Modifications:

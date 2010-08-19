@@ -1,4 +1,4 @@
-// This is basic/dbpro/dbpro_ios_processes.h
+// This is dbpro/dbpro_ios_processes.h
 #ifndef dbpro_ios_processes_h_
 #define dbpro_ios_processes_h_
 //--------------------------------------------------------------------------------
@@ -8,6 +8,11 @@
 //
 // \author Matt Leotta (mleotta@lems.brown.edu)
 // \date 1/22/08
+//
+//          Copyright Matthew Leotta 2006 - 2010.
+// Distributed under the Boost Software License, Version 1.0.
+//    (See accompanying file ../LICENSE_1_0.txt or copy at
+//          http://www.boost.org/LICENSE_1_0.txt)
 //
 // \verbatim
 //  Modifications:

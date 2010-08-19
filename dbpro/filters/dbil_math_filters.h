@@ -1,4 +1,4 @@
-// This is basic/dbil/pro/dbil_math_filters.h
+// This is dbpro/filters/dbil_math_filters.h
 #ifndef dbil_math_filters_h_
 #define dbil_math_filters_h_
 
@@ -7,6 +7,11 @@
 // \brief Filters to apply vil_math operations
 // \author Matt Leotta (mleotta@lems.brown.edu)
 // \date 6/9/06
+//
+//          Copyright Matthew Leotta 2006 - 2010.
+// Distributed under the Boost Software License, Version 1.0.
+//    (See accompanying file ../../LICENSE_1_0.txt or copy at
+//          http://www.boost.org/LICENSE_1_0.txt)
 //
 // \verbatim
 //  Modifications

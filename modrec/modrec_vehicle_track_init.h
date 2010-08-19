@@ -1,4 +1,4 @@
-// This is mleotta/gui/pca_vehicle/modrec_vehicle_track_init.h
+// This is modrec/modrec_vehicle_track_init.h
 #ifndef modrec_vehicle_track_init_h_
 #define modrec_vehicle_track_init_h_
 //=========================================================================
@@ -7,6 +7,11 @@
 // \brief Initialize vehicle tracks from foreground outlines and optical flow
 // \author Matt Leotta (mleotta)
 // \date 05/27/2009
+//
+//          Copyright Matthew Leotta 2006 - 2010.
+// Distributed under the Boost Software License, Version 1.0.
+//    (See accompanying file ../LICENSE_1_0.txt or copy at
+//          http://www.boost.org/LICENSE_1_0.txt)
 //
 // \verbatim
 //  Modifications

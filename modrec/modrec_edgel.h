@@ -1,4 +1,4 @@
-// This is contrib/mleotta/modrec/modrec_edgel.h
+// This is modrec/modrec_edgel.h
 #ifndef modrec_edgel_h_
 #define modrec_edgel_h_
 
@@ -7,6 +7,11 @@
 // \brief A subpixel edge point with orientation and strength
 // \author Matt Leotta (mleotta@lems.brown.edu)
 // \date 8/26/08
+//
+//          Copyright Matthew Leotta 2006 - 2010.
+// Distributed under the Boost Software License, Version 1.0.
+//    (See accompanying file ../LICENSE_1_0.txt or copy at
+//          http://www.boost.org/LICENSE_1_0.txt)
 //
 // \verbatim
 //  Modifications

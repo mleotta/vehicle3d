@@ -1,4 +1,4 @@
-// This is basic/dbpro/dbpro_executive.h
+// This is dbpro/dbpro_executive.h
 #ifndef dbpro_executive_h_
 #define dbpro_executive_h_
 
@@ -7,6 +7,11 @@
 // \brief An object to contain and execute a process graph
 // \author Matt Leotta
 // \date 6/7/06
+//
+//          Copyright Matthew Leotta 2006 - 2010.
+// Distributed under the Boost Software License, Version 1.0.
+//    (See accompanying file ../LICENSE_1_0.txt or copy at
+//          http://www.boost.org/LICENSE_1_0.txt)
 //
 // \verbatim
 //  Modifications

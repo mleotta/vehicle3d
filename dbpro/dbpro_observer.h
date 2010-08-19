@@ -1,4 +1,4 @@
-// This is basic/dbpro/dbpro_observer.h
+// This is dbpro/dbpro_observer.h
 #ifndef dbpro_observer_h_
 #define dbpro_observer_h_
 //--------------------------------------------------------------------------------
@@ -10,6 +10,11 @@
 //  output from a process.  The process will notify it's output observers
 // \author Matt Leotta (mleotta@lems.brown.edu)
 // \date 5/30/06
+//
+//          Copyright Matthew Leotta 2006 - 2010.
+// Distributed under the Boost Software License, Version 1.0.
+//    (See accompanying file ../LICENSE_1_0.txt or copy at
+//          http://www.boost.org/LICENSE_1_0.txt)
 //
 // \verbatim
 //  Modifications:

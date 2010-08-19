@@ -1,9 +1,15 @@
-// This is contrib/mleotta/modrec/py_modrec.cxx
+// This is modrec/py_modrec.cxx
 //:
 // \file
 // \brief The python interface for modrec
 // \author Matt Leotta (mleotta@lems.brown.edu)
 // \date 11/12/08
+//
+//          Copyright Matthew Leotta 2006 - 2010.
+// Distributed under the Boost Software License, Version 1.0.
+//    (See accompanying file ../LICENSE_1_0.txt or copy at
+//          http://www.boost.org/LICENSE_1_0.txt)
+//
 
 #include "Python.h"
 #include <vcl_iostream.h>

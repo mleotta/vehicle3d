@@ -1,3 +1,8 @@
+//          Copyright Matthew Leotta 2006 - 2010.
+// Distributed under the Boost Software License, Version 1.0.
+//    (See accompanying file ../../LICENSE_1_0.txt or copy at
+//          http://www.boost.org/LICENSE_1_0.txt)
+
 #include <dbpro/dbpro_basic_processes.h>
 #include <dbpro/dbpro_connector.h>
 #include <dbpro/dbpro_connector_sptr.h>

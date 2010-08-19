@@ -1,4 +1,4 @@
-// This is basic/dbil/pro/dbil_sobel_1x3_filter.h
+// This is dbpro/filters/dbil_sobel_1x3_filter.h
 #ifndef dbil_sobel_1x3_filter_h_
 #define dbil_sobel_1x3_filter_h_
 
@@ -7,6 +7,11 @@
 // \brief A Sobel 1x3 filter to produce image gradients
 // \author Matt Leotta (mleotta@lems.brown.edu)
 // \date 5/8/09
+//
+//          Copyright Matthew Leotta 2006 - 2010.
+// Distributed under the Boost Software License, Version 1.0.
+//    (See accompanying file ../../LICENSE_1_0.txt or copy at
+//          http://www.boost.org/LICENSE_1_0.txt)
 //
 // \verbatim
 //  Modifications

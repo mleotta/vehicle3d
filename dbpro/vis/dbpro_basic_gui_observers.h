@@ -1,4 +1,4 @@
-// This is basic/dbpro/vis/dbpro_basic_gui_observers.h
+// This is dbpro/vis/dbpro_basic_gui_observers.h
 #ifndef dbpro_basic_gui_observers_h_
 #define dbpro_basic_gui_observers_h_
 //:
@@ -6,6 +6,11 @@
 // \brief  Commonly used dbpro_observers that update vgui_tableau
 // \author Matthew Leotta (mleotta@brown.lems.edu)
 // \date   April 22, 2009
+//
+//          Copyright Matthew Leotta 2006 - 2010.
+// Distributed under the Boost Software License, Version 1.0.
+//    (See accompanying file ../../LICENSE_1_0.txt or copy at
+//          http://www.boost.org/LICENSE_1_0.txt)
 //
 // \verbatim
 //  Modifications

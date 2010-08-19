@@ -1,4 +1,4 @@
-// This is basic/dbvidl2/pro/dbvidl2_frame_to_resource.h
+// This is dbpro/filters/dbvidl2_frame_to_resource.h
 #ifndef dbvidl2_frame_to_resource_h_
 #define dbvidl2_frame_to_resource_h_
 
@@ -7,6 +7,11 @@
 // \brief Convert a vidl_frame into a vil_image_resource
 // \author Matt Leotta
 // \date 6/1/06
+//
+//          Copyright Matthew Leotta 2006 - 2010.
+// Distributed under the Boost Software License, Version 1.0.
+//    (See accompanying file ../../LICENSE_1_0.txt or copy at
+//          http://www.boost.org/LICENSE_1_0.txt)
 //
 // \verbatim
 //  Modifications

@@ -1,4 +1,4 @@
-// This is basic/dbpro/vis/dbpro_run_tableau.h
+// This is dbpro/vis/dbpro_run_tableau.h
 #ifndef dbpro_run_tableau_h_
 #define dbpro_run_tableau_h_
 //:
@@ -6,6 +6,11 @@
 // \brief  Tableau that runs a dbpro process graph in its idle handler
 // \author Matthew Leotta (mleotta@brown.lems.edu)
 // \date   July 14, 2006
+//
+//          Copyright Matthew Leotta 2006 - 2010.
+// Distributed under the Boost Software License, Version 1.0.
+//    (See accompanying file ../../LICENSE_1_0.txt or copy at
+//          http://www.boost.org/LICENSE_1_0.txt)
 //
 // \verbatim
 //  Modifications

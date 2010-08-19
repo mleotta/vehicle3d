@@ -1,4 +1,4 @@
-// This is contrib/mleotta/modrec/modrec_proj_lsqr_cost_func.h
+// This is modrec/modrec_proj_lsqr_cost_func.h
 #ifndef modrec_proj_lsqr_cost_func_h_
 #define modrec_proj_lsqr_cost_func_h_
 //:
@@ -7,6 +7,11 @@
 //        model and its projection
 // \author Matt Leotta
 // \date 11/11/05
+//
+//          Copyright Matthew Leotta 2006 - 2010.
+// Distributed under the Boost Software License, Version 1.0.
+//    (See accompanying file ../LICENSE_1_0.txt or copy at
+//          http://www.boost.org/LICENSE_1_0.txt)
 //
 // \verbatim
 //  Modifications

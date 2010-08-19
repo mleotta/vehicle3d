@@ -1,4 +1,4 @@
-// This is basic/dbil/pro/dbil_morphology_filters.h
+// This is dbpro/filters/dbil_morphology_filters.h
 #ifndef dbil_morphology_filters_h_
 #define dbil_morphology_filters_h_
 
@@ -7,6 +7,11 @@
 // \brief Filters for morphological operations
 // \author Matt Leotta (mleotta@lems.brown.edu)
 // \date 6/12/06
+//
+//          Copyright Matthew Leotta 2006 - 2010.
+// Distributed under the Boost Software License, Version 1.0.
+//    (See accompanying file ../../LICENSE_1_0.txt or copy at
+//          http://www.boost.org/LICENSE_1_0.txt)
 //
 // \verbatim
 //  Modifications

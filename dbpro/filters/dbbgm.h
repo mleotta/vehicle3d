@@ -1,4 +1,4 @@
-// This is brcv/seg/dbbgm/pro/dbbgm_dbpro_filters.h
+// This is dbpro/filters/dbbgm.h
 #ifndef dbpro_filters_dbbgm_h_
 #define dbpro_filters_dbbgm_h_
 
@@ -7,6 +7,11 @@
 // \brief dbpro filters for background modeling
 // \author Matt Leotta (mleotta@lems.brown.edu)
 // \date 6/12/06
+//
+//          Copyright Matthew Leotta 2006 - 2010.
+// Distributed under the Boost Software License, Version 1.0.
+//    (See accompanying file ../../LICENSE_1_0.txt or copy at
+//          http://www.boost.org/LICENSE_1_0.txt)
 //
 // \verbatim
 //  Modifications

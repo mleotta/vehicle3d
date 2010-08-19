@@ -1,10 +1,16 @@
-// This is basic/dbpro/vis/dbpro_run_tableau.cxx
+// This is dbpro/vis/dbpro_run_tableau.cxx
 #include <dbpro/vis/dbpro_run_tableau.h>
 //:
 // \file
 // \author Matthew Leotta
 // \date   July 14, 2006
 // \brief  See dbpro_run_tableau.h for a description of this file.
+//
+//          Copyright Matthew Leotta 2006 - 2010.
+// Distributed under the Boost Software License, Version 1.0.
+//    (See accompanying file ../../LICENSE_1_0.txt or copy at
+//          http://www.boost.org/LICENSE_1_0.txt)
+//
 
 
 #include <vcl_iostream.h>

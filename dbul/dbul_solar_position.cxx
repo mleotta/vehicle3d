@@ -1,4 +1,4 @@
-// This is basic/dbul/dbul_solar_position.cxx
+// This is dbul/dbul_solar_position.cxx
 #ifdef VCL_NEEDS_PRAGMA_INTERFACE
 #pragma implementation
 #endif
@@ -6,6 +6,12 @@
 // \file
 // \author Matt Leotta (Brown)
 // \date   October 28, 2005
+//
+//          Copyright Matthew Leotta 2006 - 2010.
+// Distributed under the Boost Software License, Version 1.0.
+//    (See accompanying file ../../LICENSE_1_0.txt or copy at
+//          http://www.boost.org/LICENSE_1_0.txt)
+//
 
 #include "dbul_solar_position.h"
 #include <vcl_cmath.h>

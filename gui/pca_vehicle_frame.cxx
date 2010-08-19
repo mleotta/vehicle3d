@@ -1,8 +1,13 @@
-// This is mleotta/gui/pca_vehicle/pca_vehicle_frame.cxx
+// This is gui/pca_vehicle_frame.cxx
 //=========================================================================
 //:
 // \file
 // \brief  wxWidgets main frame class.
+//
+//          Copyright Matthew Leotta 2006 - 2010.
+// Distributed under the Boost Software License, Version 1.0.
+//    (See accompanying file ../LICENSE_1_0.txt or copy at
+//          http://www.boost.org/LICENSE_1_0.txt)
 //
 // See pca_vehicle_frame.h for details.
 //=========================================================================
