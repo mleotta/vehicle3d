@@ -28,7 +28,7 @@
 #include <dbpro/filters/vil_grad_sqr_filter.h>
 #include <dbpro/filters/vil_transform3_1_filter.h>
 #include <dbpro/filters/vil_morphology_filters.h>
-#include <dbpro/filters/dbbgm.h>
+#include <dbpro/filters/bbgm_filters.h>
 
 #include <vpdl/vpdt/vpdt_gaussian.h>
 #include <vpdl/vpdt/vpdt_mixture_of.h>
@@ -988,8 +988,8 @@ void modrec_vehicle_tracker::init_bgm_pro()
   gdetector_type gmd(dist);
   detector_type detector(gmd, wt);
   
-  graph_["bg_update"]   = new dbbgm_update_filter<updater_type,vxl_byte>(updater);
-  graph_["bg_detect"]   = new dbbgm_detect_filter<detector_type,vxl_byte>(detector);
+  graph_["bg_update"]   = new bbgm_update_filter<updater_type,vxl_byte>(updater);
+  graph_["bg_detect"]   = new bbgm_detect_filter<detector_type,vxl_byte>(detector);
   graph_["bg_delay"]    = new dbpro_delay(1,bg_model);
 }
 
@@ -1020,8 +1020,8 @@ void modrec_vehicle_tracker::init_ebgm_pro()
   gdetector_type gmd(dist);
   detector_type detector(gmd, wt);
   
-  graph_["bge_update"]   = new dbbgm_update_filter<updater_type,float>(updater);
-  graph_["bge_detect"]   = new dbbgm_detect_filter<detector_type,float>(detector);
+  graph_["bge_update"]   = new bbgm_update_filter<updater_type,float>(updater);
+  graph_["bge_detect"]   = new bbgm_detect_filter<detector_type,float>(detector);
   graph_["bge_delay"]    = new dbpro_delay(1,bg_model);
 }
 

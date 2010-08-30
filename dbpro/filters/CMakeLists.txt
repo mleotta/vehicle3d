@@ -20,7 +20,7 @@ set(dbpro_filters_sources
                                     vil_transform3_1_filter.h
    vil_monotone_process.cxx         vil_monotone_process.h
 
-                                    dbbgm.h
+                                    bbgm_filters.h
 
    vidl_source.cxx                  vidl_source.h
    vidl_multi_source.cxx            vidl_multi_source.h

@@ -1,6 +1,6 @@
-// This is dbpro/filters/dbbgm.h
-#ifndef dbpro_filters_dbbgm_h_
-#define dbpro_filters_dbbgm_h_
+// This is dbpro/filters/bbgm_filters.h
+#ifndef bbgm_filters_h_
+#define bbgm_filters_h_
 
 //:
 // \file
@@ -33,11 +33,11 @@
 
 
 template <class updater_t, class T>
-class dbbgm_update_filter : public dbpro_filter
+class bbgm_update_filter : public dbpro_filter
 {
 public:
   typedef typename updater_t::distribution_type dist_t;
-  dbbgm_update_filter(const updater_t& u) : updater_(u) {}
+  bbgm_update_filter(const updater_t& u) : updater_(u) {}
   
   dbpro_signal execute()
   {
@@ -64,11 +64,11 @@ private:
 
 
 template <class updater_t, class T>
-class dbbgm_update_masked_filter : public dbpro_filter
+class bbgm_update_masked_filter : public dbpro_filter
 {
 public:
   typedef typename updater_t::distribution_type dist_t;
-  dbbgm_update_masked_filter(const updater_t& u) : updater_(u) {}
+  bbgm_update_masked_filter(const updater_t& u) : updater_(u) {}
   
   dbpro_signal execute()
   {
@@ -100,11 +100,11 @@ private:
 
 
 template <class detector_t, class T>
-class dbbgm_detect_filter : public dbpro_filter
+class bbgm_detect_filter : public dbpro_filter
 {
 public:
   typedef typename detector_t::distribution_type dist_t;
-  dbbgm_detect_filter(const detector_t& d) : detector_(d) {}
+  bbgm_detect_filter(const detector_t& d) : detector_(d) {}
   
   dbpro_signal execute()
   {
@@ -135,11 +135,11 @@ private:
 
 
 template <class detector_t, class T>
-class dbbgm_detect_masked_filter : public dbpro_filter
+class bbgm_detect_masked_filter : public dbpro_filter
 {
 public:
   typedef typename detector_t::distribution_type dist_t;
-  dbbgm_detect_masked_filter(const detector_t& d) : detector_(d) {}
+  bbgm_detect_masked_filter(const detector_t& d) : detector_(d) {}
   
   dbpro_signal execute()
   {
@@ -172,4 +172,4 @@ private:
 };
 
 
-#endif //dbpro_filters_dbbgm_h_
+#endif //bbgm_filters_h_
