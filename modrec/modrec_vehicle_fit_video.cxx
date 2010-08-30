@@ -18,25 +18,25 @@
 #include <vgl/vgl_intersection.h>
 #include <modrec/modrec_vehicle_tracker.h>
 #include <vgl/vgl_area.h>
-#include <dbpro/dbpro_observer.h>
+#include <vpro/vpro_observer.h>
 #include <vil/vil_image_resource.h>
-#include <dbpro/filters/vidl_source.h>
+#include <vpro/filters/vidl_source.h>
 #include <vnl/algo/vnl_cholesky.h>
 
 #include <vnl/algo/vnl_symmetric_eigensystem.h>
 
 //: update the tracker with the edge map
-class modrec_edgemap_observer: public dbpro_observer
+class modrec_edgemap_observer: public vpro_observer
 {
 public:
   modrec_edgemap_observer(modrec_vehicle_fit_video& opt)
   : optimizer(opt) {}
   
   //: Called by the process when the data is ready
-  virtual bool notify(const dbpro_storage_sptr& data, unsigned long timestamp)
+  virtual bool notify(const vpro_storage_sptr& data, unsigned long timestamp)
   {
     assert(data);
-    if(data->info() == DBPRO_VALID){
+    if(data->info() == VPRO_VALID){
       assert(data->type_id() == typeid(vil_image_resource_sptr));
       vil_image_resource_sptr edge_rsc = data->data<vil_image_resource_sptr>();
       if(edge_rsc){

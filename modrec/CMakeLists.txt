@@ -31,7 +31,7 @@ set(modrec_sources
 
 add_library(modrec  ${modrec_sources})
 
-target_link_libraries(modrec dbpro dbpro_filters bbgm rrel imesh_algo vpgl vil_algo klt)
+target_link_libraries(modrec vpro vpro_filters bbgm rrel imesh_algo vpgl vil_algo klt)
 
 if( BUILD_TESTING )
 #  add_subdirectory(tests)

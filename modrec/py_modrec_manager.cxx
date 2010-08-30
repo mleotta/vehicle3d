@@ -30,21 +30,21 @@
 #include <vidl/vidl_ffmpeg_istream.h>
 #include <vidl/vidl_image_list_istream.h>
 
-#include <dbpro/dbpro_observer.h>
+#include <vpro/vpro_observer.h>
 
 
 //: observer to capture current vehicle tracking states
-class track_observer: public dbpro_observer
+class track_observer: public vpro_observer
 {
 public:
   track_observer(py_modrec_manager& m)
   : manager_(m) {}
   
   //: Called by the process when the data is ready
-  virtual bool notify(const dbpro_storage_sptr& data, unsigned long timestamp)
+  virtual bool notify(const vpro_storage_sptr& data, unsigned long timestamp)
   {
     assert(data);
-    if(data->info() == DBPRO_VALID){
+    if(data->info() == VPRO_VALID){
       assert(data->type_id() == typeid(vcl_vector<modrec_vehicle_state>));
       const vcl_vector<modrec_vehicle_state>& states = 
       data->data<vcl_vector<modrec_vehicle_state> >();
@@ -635,9 +635,9 @@ void py_modrec_manager::video_seek(int fnum)
 //: advance the video to the next frame
 bool py_modrec_manager::advance_video()
 {  
-  dbpro_signal s = video_optimizer_.process_once();
+  vpro_signal s = video_optimizer_.process_once();
   compute_sun_direction();
-  if(s == DBPRO_VALID )
+  if(s == VPRO_VALID )
     return true;
   return false;
 }
