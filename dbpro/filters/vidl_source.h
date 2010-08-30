@@ -1,6 +1,6 @@
-// This is dbpro/filters/dbvidl2_source.h
-#ifndef dbvidl2_source_h_
-#define dbvidl2_source_h_
+// This is dbpro/filters/vidl_source.h
+#ifndef vidl_source_h_
+#define vidl_source_h_
 
 //:
 // \file
@@ -23,15 +23,15 @@
 #include <vidl/vidl_istream_sptr.h>
 
 //: Convert a vidl_istream into a dbpro_source
-class dbvidl2_source : public dbpro_source
+class vidl_source : public dbpro_source
 {
  public:
 
   //: Constructor
-  dbvidl2_source(const vidl_istream_sptr& i) : istream_(i) {}
+  vidl_source(const vidl_istream_sptr& i) : istream_(i) {}
 
   //: Destructor
-  virtual ~dbvidl2_source(){}
+  virtual ~vidl_source(){}
 
   //: Set the istream
   void set_stream(const vidl_istream_sptr& i) { istream_ = i; }
@@ -46,4 +46,4 @@ class dbvidl2_source : public dbpro_source
   vidl_istream_sptr istream_;
 };
 
-#endif // dbvidl2_source_h_
+#endif // vidl_source_h_

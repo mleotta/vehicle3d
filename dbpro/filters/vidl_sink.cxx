@@ -1,4 +1,4 @@
-// This is dbpro/filters/dbvidl2_sink.cxx
+// This is dbpro/filters/vidl_sink.cxx
 
 //          Copyright Matthew Leotta 2006 - 2010.
 // Distributed under the Boost Software License, Version 1.0.
@@ -8,14 +8,14 @@
 //:
 // \file
 
-#include "dbvidl2_sink.h"
+#include "vidl_sink.h"
 #include <vidl/vidl_ostream.h>
 
 
 
 //: Run the process on the current frame
 dbpro_signal
-dbvidl2_sink::execute()
+vidl_sink::execute()
 {
   if(!ostream_)
     return DBPRO_VALID;

@@ -20,7 +20,7 @@
 #include <vgl/vgl_area.h>
 #include <dbpro/dbpro_observer.h>
 #include <vil/vil_image_resource.h>
-#include <dbpro/filters/dbvidl2_source.h>
+#include <dbpro/filters/vidl_source.h>
 #include <vnl/algo/vnl_cholesky.h>
 
 #include <vnl/algo/vnl_symmetric_eigensystem.h>

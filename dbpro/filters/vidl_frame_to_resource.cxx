@@ -1,4 +1,4 @@
-// This is dbpro/filters/dbvidl2_frame_to_resource.cxx
+// This is dbpro/filters/vidl_frame_to_resource.cxx
 
 //          Copyright Matthew Leotta 2006 - 2010.
 // Distributed under the Boost Software License, Version 1.0.
@@ -8,14 +8,14 @@
 //:
 // \file
 
-#include "dbvidl2_frame_to_resource.h"
+#include "vidl_frame_to_resource.h"
 #include <vidl/vidl_convert.h>
 #include <vil/vil_new.h>
 
 
 //: Run the process on the current frame
 dbpro_signal
-dbvidl2_frame_to_resource::execute()
+vidl_frame_to_resource::execute()
 {
   assert(input_type_id(0) == typeid(vidl_frame_sptr));
   vidl_frame_sptr frame = input<vidl_frame_sptr>(0);

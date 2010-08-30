@@ -1,6 +1,6 @@
-// This is dbpro/filters/dbvidl2_resource_to_frame.h
-#ifndef dbvidl2_resource_to_frame_h_
-#define dbvidl2_resource_to_frame_h_
+// This is dbpro/filters/vidl_resource_to_frame.h
+#ifndef vidl_resource_to_frame_h_
+#define vidl_resource_to_frame_h_
 
 //:
 // \file
@@ -23,15 +23,15 @@
 
 
 //: Convert a vil_image_resource into a vidl_frame
-class dbvidl2_resource_to_frame : public dbpro_filter
+class vidl_resource_to_frame : public dbpro_filter
 {
  public:
 
   //: Constructor
-   dbvidl2_resource_to_frame(){}
+   vidl_resource_to_frame(){}
 
   //: Destructor
-  virtual ~dbvidl2_resource_to_frame(){}
+  virtual ~vidl_resource_to_frame(){}
 
   //: Execute this process
   dbpro_signal execute();
@@ -40,4 +40,4 @@ class dbvidl2_resource_to_frame : public dbpro_filter
 
 };
 
-#endif // dbvidl2_resource_to_frame_h_
+#endif // vidl_resource_to_frame_h_

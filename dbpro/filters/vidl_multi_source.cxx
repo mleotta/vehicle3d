@@ -1,4 +1,4 @@
-// This is dbpro/filters/dbvidl2_multi_source.cxx
+// This is dbpro/filters/vidl_multi_source.cxx
 
 //          Copyright Matthew Leotta 2006 - 2010.
 // Distributed under the Boost Software License, Version 1.0.
@@ -8,13 +8,13 @@
 //:
 // \file
 
-#include "dbvidl2_multi_source.h"
+#include "vidl_multi_source.h"
 #include <vidl/vidl_istream.h>
 
 
 //: Run the process on the current frame
 dbpro_signal 
-dbvidl2_multi_source::execute()
+vidl_multi_source::execute()
 {
   bool all_passed = true;
   for(unsigned int i=0; i<istreams_.size(); ++i){

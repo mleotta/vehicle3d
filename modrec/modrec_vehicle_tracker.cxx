@@ -20,8 +20,8 @@
 
 #include <dbpro/dbpro_delay.h>
 #include <dbpro/dbpro_basic_processes.h>
-#include <dbpro/filters/dbvidl2_source.h>
-#include <dbpro/filters/dbvidl2_frame_to_resource.h>
+#include <dbpro/filters/vidl_source.h>
+#include <dbpro/filters/vidl_frame_to_resource.h>
 #include <dbpro/filters/dbil_gauss_filter.h>
 #include <dbpro/filters/dbil_sobel_1x3_filter.h>
 #include <dbpro/filters/dbil_subpix_edge_filter.h>
@@ -834,17 +834,17 @@ modrec_vehicle_tracker::modrec_vehicle_tracker(modrec_vehicle_fit_video* optimiz
   se.set_to_disk(2.0);
   
   //graph_.enable_debug();
-  graph_["source"]      = new dbvidl2_source(NULL);
-  graph_["to_resource"] = new dbvidl2_frame_to_resource(dbvidl2_frame_to_resource::ALLOW_WRAP,
-                                                        VIL_PIXEL_FORMAT_BYTE,VIDL_PIXEL_COLOR_RGB,
-                                                        dbvidl2_frame_to_resource::PLANES,
-                                                        dbvidl2_frame_to_resource::REUSE_MEMORY);
-  
-  graph_["to_rsc_mono"] = new dbvidl2_frame_to_resource(dbvidl2_frame_to_resource::ALLOW_WRAP,
-                                                        VIL_PIXEL_FORMAT_BYTE,VIDL_PIXEL_COLOR_MONO,
-                                                        dbvidl2_frame_to_resource::PLANES,
-                                                        dbvidl2_frame_to_resource::ALLOCATE_MEMORY);
-                                                       //dbvidl2_frame_to_resource::REUSE_MEMORY);
+  graph_["source"]      = new vidl_source(NULL);
+  graph_["to_resource"] = new vidl_frame_to_resource(vidl_frame_to_resource::ALLOW_WRAP,
+                                                     VIL_PIXEL_FORMAT_BYTE,VIDL_PIXEL_COLOR_RGB,
+                                                     vidl_frame_to_resource::PLANES,
+                                                     vidl_frame_to_resource::REUSE_MEMORY);
+
+  graph_["to_rsc_mono"] = new vidl_frame_to_resource(vidl_frame_to_resource::ALLOW_WRAP,
+                                                     VIL_PIXEL_FORMAT_BYTE,VIDL_PIXEL_COLOR_MONO,
+                                                     vidl_frame_to_resource::PLANES,
+                                                     vidl_frame_to_resource::ALLOCATE_MEMORY);
+                                                     //vidl_frame_to_resource::REUSE_MEMORY);
   graph_["gauss_img"]   = new dbil_gauss_filter<vxl_byte,float>();
   graph_["grad_ij"]     = new dbil_sobel_1x3_filter<float,float>();
   graph_["edge_map"]    = new dbil_subpix_edge_filter<float,float>();
@@ -1059,7 +1059,7 @@ void modrec_vehicle_tracker::set_vehicle_model(const modrec_pca_vehicle& vehicle
 //: set the video input stream
 void modrec_vehicle_tracker::set_istream(const vidl_istream_sptr& istream)
 {
-  dbvidl2_source* source = dynamic_cast<dbvidl2_source*>(graph_["source"].ptr());
+  vidl_source* source = dynamic_cast<vidl_source*>(graph_["source"].ptr());
   if(source){
     source->set_stream(istream);
   }

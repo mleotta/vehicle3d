@@ -1,6 +1,6 @@
-// This is dbpro/filters/dbvidl2_frame_to_resource.h
-#ifndef dbvidl2_frame_to_resource_h_
-#define dbvidl2_frame_to_resource_h_
+// This is dbpro/filters/vidl_frame_to_resource.h
+#ifndef vidl_frame_to_resource_h_
+#define vidl_frame_to_resource_h_
 
 //:
 // \file
@@ -25,7 +25,7 @@
 
 
 //: Convert a vidl_frame into a vil_image_resource
-class dbvidl2_frame_to_resource : public dbpro_filter
+class vidl_frame_to_resource : public dbpro_filter
 {
  public:
 
@@ -45,25 +45,26 @@ class dbvidl2_frame_to_resource : public dbpro_filter
   enum buffer_t { ALLOCATE_MEMORY, REUSE_MEMORY };
 
   //: Default Constructor
-  dbvidl2_frame_to_resource() : image_rsc_(NULL),
-                                output_format_(VIL_PIXEL_FORMAT_BYTE),
-                                color_(VIDL_PIXEL_COLOR_UNKNOWN),
-                                channel_mode_(INTERLEAVED),
-                                buffer_mode_(ALLOCATE_MEMORY),
-                                wrap_mode_(REQUIRE_WRAP) {}
+  vidl_frame_to_resource()
+  : image_rsc_(NULL),
+    output_format_(VIL_PIXEL_FORMAT_BYTE),
+    color_(VIDL_PIXEL_COLOR_UNKNOWN),
+    channel_mode_(INTERLEAVED),
+    buffer_mode_(ALLOCATE_MEMORY),
+    wrap_mode_(REQUIRE_WRAP) {}
 
   //: Constructor
-  dbvidl2_frame_to_resource( wrap_t wrap,
-                             vil_pixel_format of=VIL_PIXEL_FORMAT_BYTE,
-                             vidl_pixel_color color=VIDL_PIXEL_COLOR_UNKNOWN,
-                             channel_t channel=PLANES,
-                             buffer_t buffer=ALLOCATE_MEMORY)
+  vidl_frame_to_resource( wrap_t wrap,
+                          vil_pixel_format of=VIL_PIXEL_FORMAT_BYTE,
+                          vidl_pixel_color color=VIDL_PIXEL_COLOR_UNKNOWN,
+                          channel_t channel=PLANES,
+                          buffer_t buffer=ALLOCATE_MEMORY)
   : image_rsc_(NULL), output_format_(of), color_(color),
     channel_mode_(channel), buffer_mode_(buffer),
     wrap_mode_(wrap) {}
 
   //: Destructor
-  virtual ~dbvidl2_frame_to_resource(){}
+  virtual ~vidl_frame_to_resource(){}
 
   //: Execute this process
   dbpro_signal execute();
@@ -79,4 +80,4 @@ class dbvidl2_frame_to_resource : public dbpro_filter
 
 };
 
-#endif // dbvidl2_frame_to_resource_h_
+#endif // vidl_frame_to_resource_h_

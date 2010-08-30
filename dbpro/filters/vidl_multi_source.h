@@ -1,6 +1,6 @@
-// This is dbpro/filters/dbvidl2_multi_source.h
-#ifndef dbvidl2_multi_source_h_
-#define dbvidl2_multi_source_h_
+// This is dbpro/filters/vidl_multi_source.h
+#ifndef vidl_multi_source_h_
+#define vidl_multi_source_h_
 
 //:
 // \file
@@ -24,19 +24,19 @@
 #include <vidl/vidl_istream_sptr.h>
 
 //: A source that provides frames from multiple video streams in sync
-class dbvidl2_multi_source : public dbpro_source
+class vidl_multi_source : public dbpro_source
 {
  public:
 
   //: Constructor
-  dbvidl2_multi_source() {}
+  vidl_multi_source() {}
 
   //: Constructor
-  dbvidl2_multi_source(const vcl_vector<vidl_istream_sptr>& streams)
+  vidl_multi_source(const vcl_vector<vidl_istream_sptr>& streams)
    : istreams_(streams) {}
 
   //: Destructor
-  virtual ~dbvidl2_multi_source(){}
+  virtual ~vidl_multi_source(){}
 
   //: add an istream
   void add_stream(const vidl_istream_sptr& is) { istreams_.push_back(is); }
@@ -53,4 +53,4 @@ class dbvidl2_multi_source : public dbpro_source
   vcl_vector<vidl_istream_sptr> istreams_;
 };
 
-#endif // dbvidl2_multi_source_h_
+#endif // vidl_multi_source_h_
