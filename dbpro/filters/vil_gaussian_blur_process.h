@@ -1,6 +1,6 @@
-// This is dbpro/filters/dbil_gaussian_blur_process.h
-#ifndef dbil_gaussian_blur_process_h_
-#define dbil_gaussian_blur_process_h_
+// This is dbpro/filters/vil_gaussian_blur_process.h
+#ifndef vil_gaussian_blur_process_h_
+#define vil_gaussian_blur_process_h_
 
 //:
 // \file
@@ -24,7 +24,7 @@
 #include <dbpro/dbpro_process_factory.h>
 
 
-class dbil_gaussian_blur_process : public dbpro_filter
+class vil_gaussian_blur_process : public dbpro_filter
 {
  public:
   class factory : public dbpro_process_factory
@@ -43,10 +43,10 @@ class dbil_gaussian_blur_process : public dbpro_filter
   };
 
   //: Constructor
-  dbil_gaussian_blur_process(float sigma) : sigma_(sigma) {}
+  vil_gaussian_blur_process(float sigma) : sigma_(sigma) {}
 
   //: Destructor
-  virtual ~dbil_gaussian_blur_process(){}
+  virtual ~vil_gaussian_blur_process(){}
 
 
   //: Execute this process
@@ -56,4 +56,4 @@ class dbil_gaussian_blur_process : public dbpro_filter
   float sigma_;
 };
 
-#endif // dbil_gaussian_blur_process_h_
+#endif // vil_gaussian_blur_process_h_

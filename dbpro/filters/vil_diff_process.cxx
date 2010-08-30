@@ -1,4 +1,4 @@
-// This is dbpro/filters/dbil_diff_process.cxx
+// This is dbpro/filters/vil_diff_process.cxx
 
 //          Copyright Matthew Leotta 2006 - 2010.
 // Distributed under the Boost Software License, Version 1.0.
@@ -8,7 +8,7 @@
 //:
 // \file
 
-#include "dbil_diff_process.h"
+#include "vil_diff_process.h"
 #include <dbpro/dbpro_storage.h>
 #include <dbpro/dbpro_parameters.h>
 #include <vil/vil_image_resource.h>
@@ -19,7 +19,7 @@
 
 //: Return the default set of parameters for the process
 dbpro_parameters_sptr
-dbil_diff_process::factory::default_params() const
+vil_diff_process::factory::default_params() const
 {
   // no parameters to add
   dbpro_parameters_sptr p = new dbpro_parameters();
@@ -29,15 +29,15 @@ dbil_diff_process::factory::default_params() const
 
 //: Construct a process from a set of parameters
 dbpro_process_sptr
-dbil_diff_process::factory::create(const dbpro_parameters_sptr& params) const
+vil_diff_process::factory::create(const dbpro_parameters_sptr& params) const
 {
-  return new dbil_diff_process();
+  return new vil_diff_process();
 }
 
 
 //: Execute this process
 dbpro_signal
-dbil_diff_process::execute()
+vil_diff_process::execute()
 {
   assert(input_type_id(0) == typeid(vil_image_resource_sptr));
   assert(input_type_id(1) == typeid(vil_image_resource_sptr));

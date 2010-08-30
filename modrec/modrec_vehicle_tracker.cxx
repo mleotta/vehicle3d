@@ -22,12 +22,12 @@
 #include <dbpro/dbpro_basic_processes.h>
 #include <dbpro/filters/vidl_source.h>
 #include <dbpro/filters/vidl_frame_to_resource.h>
-#include <dbpro/filters/dbil_gauss_filter.h>
-#include <dbpro/filters/dbil_sobel_1x3_filter.h>
-#include <dbpro/filters/dbil_subpix_edge_filter.h>
-#include <dbpro/filters/dbil_grad_sqr_filter.h>
-#include <dbpro/filters/dbil_transform3_1_filter.h>
-#include <dbpro/filters/dbil_morphology_filters.h>
+#include <dbpro/filters/vil_gauss_filter.h>
+#include <dbpro/filters/vil_sobel_1x3_filter.h>
+#include <dbpro/filters/vil_subpix_edge_filter.h>
+#include <dbpro/filters/vil_grad_sqr_filter.h>
+#include <dbpro/filters/vil_transform3_1_filter.h>
+#include <dbpro/filters/vil_morphology_filters.h>
 #include <dbpro/filters/dbbgm.h>
 
 #include <vpdl/vpdt/vpdt_gaussian.h>
@@ -436,11 +436,11 @@ public:
 
 
 //: Suppress all non-maximal edges and estimate subpixel locations
-class dbil_subpix_point_filter : public dbpro_filter
+class vil_subpix_point_filter : public dbpro_filter
 {
 public:
   //: Constructor
-  dbil_subpix_point_filter(float threshold=10.0f) : threshold_(threshold) {}
+  vil_subpix_point_filter(float threshold=10.0f) : threshold_(threshold) {}
   
   //: Execute this process
   dbpro_signal execute()
@@ -845,19 +845,19 @@ modrec_vehicle_tracker::modrec_vehicle_tracker(modrec_vehicle_fit_video* optimiz
                                                      vidl_frame_to_resource::PLANES,
                                                      vidl_frame_to_resource::ALLOCATE_MEMORY);
                                                      //vidl_frame_to_resource::REUSE_MEMORY);
-  graph_["gauss_img"]   = new dbil_gauss_filter<vxl_byte,float>();
-  graph_["grad_ij"]     = new dbil_sobel_1x3_filter<float,float>();
-  graph_["edge_map"]    = new dbil_subpix_edge_filter<float,float>();
-  graph_["grad2"]       = new dbil_grad_sqr_filter<float,float>();
-  graph_["gauss_grad2"] = new dbil_gauss_filter<float,float>();
+  graph_["gauss_img"]   = new vil_dbpro_gauss_filter<vxl_byte,float>();
+  graph_["grad_ij"]     = new vil_sobel_1x3_filter<float,float>();
+  graph_["edge_map"]    = new vil_subpix_edge_filter<float,float>();
+  graph_["grad2"]       = new vil_grad_sqr_filter<float,float>();
+  graph_["gauss_grad2"] = new vil_dbpro_gauss_filter<float,float>();
   typedef float (*eig_func_ptr)(float a, float b, float c);
-  graph_["min_eigval"]  = new dbil_transform3_1_filter<float,float,eig_func_ptr>(min_eigenvalue);
-  graph_["klt_pts"]     = new dbil_subpix_point_filter();
+  graph_["min_eigval"]  = new vil_transform3_1_filter<float,float,eig_func_ptr>(min_eigenvalue);
+  graph_["klt_pts"]     = new vil_subpix_point_filter();
   
-  graph_["bin_erode1"]  = new dbil_binary_erode_filter(se);
-  graph_["bin_dilate1"] = new dbil_binary_dilate_filter(se);
-  graph_["bin_erode2"]  = new dbil_binary_erode_filter(se);
-  graph_["bin_dilate2"] = new dbil_binary_dilate_filter(se);
+  graph_["bin_erode1"]  = new vil_binary_erode_filter(se);
+  graph_["bin_dilate1"] = new vil_binary_dilate_filter(se);
+  graph_["bin_erode2"]  = new vil_binary_erode_filter(se);
+  graph_["bin_dilate2"] = new vil_binary_dilate_filter(se);
   
   graph_["e_delay"]     = new dbpro_delay(1,vil_image_resource_sptr(NULL));
   graph_["est_t"]       = new est_translation_filter();

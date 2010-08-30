@@ -1,10 +1,10 @@
-// This is dbpro/filters/dbil_math_filters.h
-#ifndef dbil_math_filters_h_
-#define dbil_math_filters_h_
+// This is dbpro/filters/vil_convert_filters.h
+#ifndef vil_convert_filters_h_
+#define vil_convert_filters_h_
 
 //:
 // \file
-// \brief Filters to apply vil_math operations
+// \brief Filters to convert an image formats
 // \author Matt Leotta (mleotta@lems.brown.edu)
 // \date 6/9/06
 //
@@ -17,57 +17,44 @@
 //  Modifications
 // \endverbatim
 
-#include <vil/vil_math.h>
+#include <vil/vil_convert.h>
 #include <vil/vil_new.h>
 #include <dbpro/dbpro_process.h>
 
 //: Filter to cast the image to a new type
-// Warning this filter modifies the input data
-template <class T>
-class dbil_math_scale_filter : public dbpro_filter
+template <class outP>
+class vil_convert_cast_filter : public dbpro_filter
 {
   public:
-    //: Constructor
-    dbil_math_scale_filter(double scale) : scale_(scale) {}
     //: Execute this process
     dbpro_signal execute()
     {
       assert(input_type_id(0) == typeid(vil_image_resource_sptr));
       vil_image_resource_sptr in_img = input<vil_image_resource_sptr>(0);
-      vil_image_view<T> image = in_img->get_view();
-      vil_math_scale_values(image,scale_);
-      output(0, in_img);
+
+      output(0, vil_new_image_resource_of_view(*vil_convert_cast(outP(), in_img->get_view())));
       return DBPRO_VALID;
     }
-  private:
-    double scale_;
 
 };
-
 
 //: Filter to cast the image to a new type
-// Warning this filter modifies the input data
-template <class T>
-class dbil_math_scale_and_offset_filter : public dbpro_filter
+template <class inP>
+class vil_convert_stretch_range_filter : public dbpro_filter
 {
   public:
-    //: Constructor
-    dbil_math_scale_and_offset_filter(double scale, double offset)
-      : scale_(scale), offset_(offset) {}
     //: Execute this process
     dbpro_signal execute()
     {
       assert(input_type_id(0) == typeid(vil_image_resource_sptr));
       vil_image_resource_sptr in_img = input<vil_image_resource_sptr>(0);
-      vil_image_view<T> image = in_img->get_view();
-      vil_math_scale_and_offset_values(image,scale_,offset_);
-      output(0, in_img);
+      vil_image_view<inP> in = in_img->get_view();
+      vil_image_view<vxl_byte> out;
+      vil_convert_stretch_range(in, out);
+      output(0, vil_new_image_resource_of_view(out));
       return DBPRO_VALID;
     }
-  private:
-    double scale_;
-    double offset_;
 
 };
 
-#endif // dbil_math_filters_h_
+#endif // vil_convert_filters_h_

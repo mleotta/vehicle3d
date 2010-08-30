@@ -1,4 +1,4 @@
-// This is dbpro/filters/dbil_morphology_filters.cxx
+// This is dbpro/filters/vil_morphology_filters.cxx
 
 //          Copyright Matthew Leotta 2006 - 2010.
 // Distributed under the Boost Software License, Version 1.0.
@@ -8,7 +8,7 @@
 //:
 // \file
 
-#include "dbil_morphology_filters.h"
+#include "vil_morphology_filters.h"
 #include <vil/vil_image_resource.h>
 #include <vil/vil_image_view.h>
 #include <vil/vil_new.h>
@@ -18,7 +18,7 @@
 
 //: Execute this process
 dbpro_signal
-dbil_binary_erode_filter::execute()
+vil_binary_erode_filter::execute()
 {
   assert(input_type_id(0) == typeid(vil_image_resource_sptr));
   vil_image_resource_sptr in_img = input<vil_image_resource_sptr>(0);
@@ -39,7 +39,7 @@ dbil_binary_erode_filter::execute()
 
 //: Execute this process
 dbpro_signal
-dbil_binary_dilate_filter::execute()
+vil_binary_dilate_filter::execute()
 {
   assert(input_type_id(0) == typeid(vil_image_resource_sptr));
   vil_image_resource_sptr in_img = input<vil_image_resource_sptr>(0);

@@ -8,17 +8,17 @@
 
 
 set(dbpro_filters_sources
-   dbil_gaussian_blur_process.cxx   dbil_gaussian_blur_process.h
-   dbil_diff_process.cxx            dbil_diff_process.h
-   dbil_morphology_filters.cxx      dbil_morphology_filters.h
-                                    dbil_convert_filters.h
-                                    dbil_math_filters.h
-                                    dbil_gauss_filter.h
-                                    dbil_sobel_1x3_filter.h
-                                    dbil_subpix_edge_filter.h
-                                    dbil_grad_sqr_filter.h
-                                    dbil_transform3_1_filter.h
-   dbil_monotone_process.cxx        dbil_monotone_process.h
+   vil_gaussian_blur_process.cxx    vil_gaussian_blur_process.h
+   vil_diff_process.cxx             vil_diff_process.h
+   vil_morphology_filters.cxx       vil_morphology_filters.h
+                                    vil_convert_filters.h
+                                    vil_math_filters.h
+                                    vil_gauss_filter.h
+                                    vil_sobel_1x3_filter.h
+                                    vil_subpix_edge_filter.h
+                                    vil_grad_sqr_filter.h
+                                    vil_transform3_1_filter.h
+   vil_monotone_process.cxx         vil_monotone_process.h
 
                                     dbbgm.h
 

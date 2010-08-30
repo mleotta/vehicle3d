@@ -1,10 +1,10 @@
-// This is dbpro/filters/dbil_gauss_filter.h
-#ifndef dbil_gauss_filter_h_
-#define dbil_gauss_filter_h_
+// This is dbpro/filters/vil_sobel_1x3_filter.h
+#ifndef vil_sobel_1x3_filter_h_
+#define vil_sobel_1x3_filter_h_
 
 //:
 // \file
-// \brief A Gaussian smoothing filter
+// \brief A Sobel 1x3 filter to produce image gradients
 // \author Matt Leotta (mleotta@lems.brown.edu)
 // \date 5/8/09
 //
@@ -18,17 +18,18 @@
 // \endverbatim
 
 #include <vil/vil_new.h>
-#include <vil/algo/vil_gauss_filter.h>
+#include <vil/algo/vil_sobel_1x3.h>
 #include <dbpro/dbpro_process.h>
 
-//: Filter to smooth with a Gaussian
+//: A Sobel 1x3 filter to produce image gradients
+// The output is a 2-plane image containing Ix and Iy
 template <class srcT, class destT>
-class dbil_gauss_filter : public dbpro_filter
+class vil_sobel_1x3_filter : public dbpro_filter
 {
 public:
   //: Constructor
-  dbil_gauss_filter(double sigma=1.0, bool reuse_output=true) 
-  : gp_(sigma), reuse_output_(reuse_output) {}
+  vil_sobel_1x3_filter(bool reuse_output=true) 
+  : reuse_output_(reuse_output) {}
   
   //: Execute this process
   dbpro_signal execute()
@@ -38,18 +39,16 @@ public:
     vil_image_view<srcT> image = in_img->get_view();
     
     if(!reuse_output_)
-      smooth_ = vil_image_view<destT>();
-    vil_gauss_filter_5tap(image,smooth_,gp_,work_);
-    output(0, vil_new_image_resource_of_view(smooth_));
+      grad_ij_ = vil_image_view<destT>();
+    vil_sobel_1x3(image,grad_ij_);
+    output(0, vil_new_image_resource_of_view(grad_ij_));
     return DBPRO_VALID;
   }
 
-  vil_gauss_filter_5tap_params gp_;
   bool reuse_output_;
-  vil_image_view<destT> work_;
-  vil_image_view<destT> smooth_;
+  vil_image_view<destT> grad_ij_;
 
 };
 
 
-#endif // dbil_gauss_filter_h_
+#endif // vil_sobel_1x3_filter_h_
