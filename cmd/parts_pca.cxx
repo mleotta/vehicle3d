@@ -14,8 +14,8 @@
 #include <vnl/vnl_math.h>
 #include <imesh/imesh_mesh.h>
 #include <imesh/imesh_fileio.h>
-#include <modrec/modrec_pca_vehicle.h>
-#include <modrec/modrec_vehicle_parts.h>
+#include <dml/dml_pca_vehicle.h>
+#include <dml/dml_vehicle_parts.h>
 
 
 
@@ -62,7 +62,7 @@ int main(int argc, char** argv)
     vcl_string fname;
     while(ifs >> fname){
       vcl_cout << "loading: " << fname << vcl_endl;
-      pmap parts = modrec_read_vehicle_parts(fname);
+      pmap parts = dml_read_vehicle_parts(fname);
       parts["hubcap1"] = h1;
       parts["hubcap2"] = h2;
       parts["hubcap3"] = h3;
@@ -85,9 +85,9 @@ int main(int argc, char** argv)
     ifs.close();
   }
 
-  modrec_pca_vehicle pca_vehicle(meshes,part_groups);
+  dml_pca_vehicle pca_vehicle(meshes,part_groups);
   
-  modrec_write_pca_vehicle(a_mean_mesh_file(),
+  dml_write_pca_vehicle(a_mean_mesh_file(),
                            a_mean_parts_file(),
                            a_pca_file(),
                            pca_vehicle);

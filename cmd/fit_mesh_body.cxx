@@ -20,7 +20,7 @@
 #include <imesh/algo/imesh_intersect.h>
 #include <imesh/algo/imesh_imls_surface.h>
 #include <imesh/algo/imesh_operations.h>
-#include <modrec/modrec_vehicle_mesh.h>
+#include <dml/dml_vehicle_mesh.h>
 
 
 #include <vcl_algorithm.h>
@@ -413,15 +413,15 @@ int main(int argc, char** argv)
 
 #if 0
   vcl_map<vcl_string,double> params;
-  modrec_read_vehicle_params(a_in_file(),params);
+  dml_read_vehicle_params(a_in_file(),params);
 
   double r1 = params["wheel_rad"];
   double r2 = r1+params["tire_thick"];
   double ww = params["wheel_width"];
   double so = params["susp_offset"];
 
-  vcl_auto_ptr<imesh_vertex_array_base> verts(modrec_generate_vehicle_body_verts(params));
-  vcl_auto_ptr<imesh_face_array_base> faces(modrec_generate_vehicle_body_faces());
+  vcl_auto_ptr<imesh_vertex_array_base> verts(dml_generate_vehicle_body_verts(params));
+  vcl_auto_ptr<imesh_face_array_base> faces(dml_generate_vehicle_body_faces());
 
   imesh_mesh model_mesh(verts,faces);
   imesh_transform_inplace(model_mesh,vgl_vector_3d<double>(0,0,r2+so));

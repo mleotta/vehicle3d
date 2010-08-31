@@ -38,7 +38,7 @@
 #include <vpro/vis/vpro_basic_gui_observers.h>
 
 #include <vul/vul_timer.h>
-#include <modrec/modrec_solar_position.h>
+#include <dml/dml_solar_position.h>
 
 #include <vidl/vidl_istream.h>
 #include <vidl/vidl_convert.h>
@@ -63,10 +63,10 @@
 #include <imesh/algo/imesh_project.h>
 #include <imesh/algo/imesh_intersect.h>
 #include <imesh/algo/imesh_operations.h>
-#include <modrec/modrec_vehicle_parts.h>
-#include <modrec/modrec_vehicle_mesh.h>
-#include <modrec/modrec_vehicle_fit.h>
-#include <modrec/modrec_edgel.h>
+#include <dml/dml_vehicle_parts.h>
+#include <dml/dml_vehicle_mesh.h>
+#include <dml/dml_vehicle_fit.h>
+#include <dml/dml_edgel.h>
 
 
 #include <Inventor/nodes/SoCoordinate3.h>
@@ -105,9 +105,9 @@ public:
   {
     assert(data);
     if(data->info() == VPRO_VALID){
-      assert(data->type_id() == typeid(vcl_vector<modrec_vehicle_state>));
-      const vcl_vector<modrec_vehicle_state>& states = 
-          data->data<vcl_vector<modrec_vehicle_state> >();
+      assert(data->type_id() == typeid(vcl_vector<dml_vehicle_state>));
+      const vcl_vector<dml_vehicle_state>& states = 
+          data->data<vcl_vector<dml_vehicle_state> >();
       
       for(unsigned int i=0; i<states.size(); ++i){
         manager_.draw_hypothesis(states[i]);
@@ -131,9 +131,9 @@ public:
   {
     assert(data);
     if(data->info() == VPRO_VALID){
-      assert(data->type_id() == typeid(vcl_vector<modrec_vehicle_state>));
-      const vcl_vector<modrec_vehicle_state>& states = 
-          data->data<vcl_vector<modrec_vehicle_state> >();
+      assert(data->type_id() == typeid(vcl_vector<dml_vehicle_state>));
+      const vcl_vector<dml_vehicle_state>& states = 
+          data->data<vcl_vector<dml_vehicle_state> >();
       
       manager_.set_tracking_states(states);
     }
@@ -530,7 +530,7 @@ bool pca_vehicle_manager::is_fit_mode_video() const
 
 
 //: Initialize the texture map for detailed meshes
-void pca_vehicle_manager::init_mesh_tex(modrec_pca_vehicle& mesh)
+void pca_vehicle_manager::init_mesh_tex(dml_pca_vehicle& mesh)
 {
   if(mesh.has_tex_coords())
   {
@@ -551,10 +551,10 @@ void pca_vehicle_manager::init_mesh_tex(modrec_pca_vehicle& mesh)
 }
 
 
-//: Build a default vehicle mesh from default parameters in modrec
+//: Build a default vehicle mesh from default parameters in dml
 void pca_vehicle_manager::init_mesh()
 {
-  modrec_generate_vehicle(modrec_read_vehicle_params(),detailed3_mesh_);
+  dml_generate_vehicle(dml_read_vehicle_params(),detailed3_mesh_);
   detailed1_mesh_ = detailed3_mesh_;
 
   imesh_quad_subdivide(detailed3_mesh_,detailed3_mesh_.faces().group_face_set("body"));
@@ -578,11 +578,11 @@ void pca_vehicle_manager::init_mesh()
   
   mesh_ = &detailed3_mesh_;
   
-  modrec_generate_dodec_vehicle(modrec_read_vehicle_params(),dodec_mesh_);
+  dml_generate_dodec_vehicle(dml_read_vehicle_params(),dodec_mesh_);
   dodec_mesh_.compute_face_normals();
   dodec_mesh_.build_edge_graph();
   
-  modrec_generate_ferryman_vehicle(modrec_read_vehicle_params(),ferryman_mesh_);
+  dml_generate_ferryman_vehicle(dml_read_vehicle_params(),ferryman_mesh_);
   ferryman_mesh_.compute_face_normals();
   ferryman_mesh_.build_edge_graph();
 
@@ -825,7 +825,7 @@ bool pca_vehicle_manager::save_3d_parts(const vcl_string& filename) const
 //: Save the projected contours as SVG
 bool pca_vehicle_manager::save_svg(const vcl_string& filename) const
 {
-  return modrec_write_svg_curves(filename, mesh_projector_);
+  return dml_write_svg_curves(filename, mesh_projector_);
 }
 
 
@@ -904,7 +904,7 @@ void pca_vehicle_manager::compute_sun_direction()
     }
 
     double alt,az;
-    modrec_solar_position(solar_day_, solar_utc_+rel_time, solar_lat_, solar_lon_, alt, az);
+    dml_solar_position(solar_day_, solar_utc_+rel_time, solar_lat_, solar_lon_, alt, az);
     double sag = solar_atn_ - az;
     sun_dir_ = vgl_vector_3d<double>(-vcl_cos(sag)*vcl_cos(alt),
                                      -vcl_sin(sag)*vcl_cos(alt),
@@ -947,7 +947,7 @@ bool pca_vehicle_manager::load_mesh(const vcl_string& meshfile,
       mesh_->set_params(mesh_->imesh_pca_mesh::project(mesh_->vertices()));
     else
       mesh_->set_params(mesh_->project(mesh_->vertices(),
-                                       modrec_read_vehicle_parts(partsfile)));
+                                       dml_read_vehicle_parts(partsfile)));
     draw_parts();
   }
   video_optimizer_.set_vehicle_model(*mesh_);
@@ -973,7 +973,7 @@ bool pca_vehicle_manager::load_truth_mesh(const vcl_string& filename)
 //: Vehicle surface parts
 bool pca_vehicle_manager::load_parts(const vcl_string& filename)
 {
-  mesh_->set_parts(modrec_read_vehicle_parts(filename));
+  mesh_->set_parts(dml_read_vehicle_parts(filename));
   video_optimizer_.set_vehicle_model(*mesh_);
   draw_parts();
 
@@ -1352,7 +1352,7 @@ void pca_vehicle_manager::draw_texmap_parts()
   tex_parts_tab_->set_point_radius(3.0);
   tex_parts_tab_->set_foreground(0.0f,1.0f,0.0f);
   
-  typedef modrec_pca_vehicle::uv_point uv_point;
+  typedef dml_pca_vehicle::uv_point uv_point;
   const vcl_vector<vcl_vector<uv_point> >& parts_uv = mesh_->parts_bary();
   for(unsigned int i=0; i<parts_uv.size(); ++i)
   {
@@ -1419,7 +1419,7 @@ void pca_vehicle_manager::draw_parts()
 
 
 //: draw a hypothesized vehicle shape and pose
-void pca_vehicle_manager::draw_hypothesis(const modrec_vehicle_state& state)
+void pca_vehicle_manager::draw_hypothesis(const dml_vehicle_state& state)
 {
   if(!selector_tab_->is_visible("Vehicle Detection"))
     return;
@@ -1455,11 +1455,11 @@ void pca_vehicle_manager::draw_hypothesis(const modrec_vehicle_state& state)
 //: draw the current vehicle tracking states
 void pca_vehicle_manager::draw_current_states()
 {
-  typedef vcl_map<unsigned int,vcl_vector<modrec_vehicle_state> >::const_iterator map_itr;
+  typedef vcl_map<unsigned int,vcl_vector<dml_vehicle_state> >::const_iterator map_itr;
   map_itr fitr = state_map_.find(current_frame());
   if(fitr == state_map_.end() || fitr->second.empty())
     return;
-  const vcl_vector<modrec_vehicle_state>& states = fitr->second;
+  const vcl_vector<dml_vehicle_state>& states = fitr->second;
   
   proj_tab_->clear();
   proj_tab_->set_line_width(2.0);
@@ -1491,7 +1491,7 @@ void pca_vehicle_manager::draw_current_states()
 
 
 //: set the vehicle tracking states
-void pca_vehicle_manager::set_tracking_states(const vcl_vector<modrec_vehicle_state>& states)
+void pca_vehicle_manager::set_tracking_states(const vcl_vector<dml_vehicle_state>& states)
 {
   if(states.empty())
     return;
@@ -1501,7 +1501,7 @@ void pca_vehicle_manager::set_tracking_states(const vcl_vector<modrec_vehicle_st
 
 
 //: set the history of vehicle tracking states indexed over frame number
-void pca_vehicle_manager::set_state_map(const vcl_map<unsigned int,vcl_vector<modrec_vehicle_state> >& state_map)
+void pca_vehicle_manager::set_state_map(const vcl_map<unsigned int,vcl_vector<dml_vehicle_state> >& state_map)
 {
   state_map_ = state_map;
 }
@@ -1514,7 +1514,7 @@ void pca_vehicle_manager::build_parts_node()
   assert(mesh_->has_half_edges());
   parts_node_->removeAllChildren();
   
-  typedef modrec_pca_vehicle::uv_point uv_point;
+  typedef dml_pca_vehicle::uv_point uv_point;
   const vcl_vector<vcl_vector<uv_point> >& parts_uv = mesh_->parts_bary();
   const vcl_vector<vcl_vector<vgl_point_3d<double> > >& parts3d = mesh_->parts_3d();
   const vcl_vector<vgl_vector_3d<double> >& normals = mesh_->faces().normals();
@@ -1940,13 +1940,13 @@ void pca_vehicle_manager::compute_vis_edgels()
     return;
   
   vis_edgels_.clear();
-  vcl_vector<modrec_edgel> medgels = modrec_find_all_edgels(edge_map);
+  vcl_vector<dml_edgel> medgels = dml_find_all_edgels(edge_map);
   
-  vcl_sort(medgels.begin(), medgels.end(), modrec_edgel_strength_less);
+  vcl_sort(medgels.begin(), medgels.end(), dml_edgel_strength_less);
 
   for(unsigned int i=0; i<medgels.size(); ++i)
   {
-    const modrec_edgel& m = medgels[i];
+    const dml_edgel& m = medgels[i];
     double gx = vcl_cos(m.angle());
     double gy = vcl_sin(m.angle());
     vis_edgels_.push_back(vcl_pair<double,vnl_double_4>(m.strength(),
@@ -2002,7 +2002,7 @@ void pca_vehicle_manager::fit_model(unsigned int num_itr)
   
   double last_residual = vcl_numeric_limits<double>::infinity();
   vnl_vector<double> soln(optimizer_->num_params(),0.0);
-  modrec_write_svg_curves("curves_init.svg",mesh_projector_);
+  dml_write_svg_curves("curves_init.svg",mesh_projector_);
   
   for(unsigned int k=0; k<num_itr; ++k){
     
@@ -2024,7 +2024,7 @@ void pca_vehicle_manager::fit_model(unsigned int num_itr)
       vcl_stringstream svg_file;
       vcl_cout << "itr "<<k+1<<" scale "<<edge_scale<<vcl_endl;
       svg_file << "curves_"<<k<<".svg";
-      modrec_write_svg_curves(svg_file.str(),mesh_projector_);
+      dml_write_svg_curves(svg_file.str(),mesh_projector_);
     }
   }
 }
@@ -2220,7 +2220,7 @@ void pca_vehicle_manager::draw_jacobians()
   {
     const vcl_vector<vcl_vector<vcl_pair<unsigned int,unsigned int> > >&
     parts_idx = mesh_projector_.parts_indices();
-    typedef modrec_pca_vehicle::uv_point uv_point;
+    typedef dml_pca_vehicle::uv_point uv_point;
     const vcl_vector<vcl_vector<uv_point> >& parts_uv = mesh_->parts_bary();
     for(unsigned int i=0; i<parts_idx.size(); ++i)
     {

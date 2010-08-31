@@ -27,10 +27,10 @@
 
 #include <vgl/vgl_line_segment_2d.h>
 #include <vgl/vgl_polygon.h>
-#include <modrec/modrec_pca_vehicle.h>
-#include <modrec/modrec_vehicle_fit_multiview.h>
-#include <modrec/modrec_vehicle_fit_video.h>
-#include <modrec/modrec_vehicle_state.h>
+#include <dml/dml_pca_vehicle.h>
+#include <dml/dml_vehicle_fit_multiview.h>
+#include <dml/dml_vehicle_fit_video.h>
+#include <dml/dml_vehicle_state.h>
 #include <vpgl/vpgl_perspective_camera.h>
 #include <vidl/vidl_istream_sptr.h>
 #include <vidl/gui/vidl_capture_tableau_sptr.h>
@@ -197,7 +197,7 @@ public:
   void update_mesh_param(unsigned int i, double param);
 
   //: Access the vehicle mesh
-  const modrec_pca_vehicle& mesh() const { return *mesh_; }
+  const dml_pca_vehicle& mesh() const { return *mesh_; }
 
   //: Access the camera
   const vpgl_perspective_camera<double>& camera() const;
@@ -235,23 +235,23 @@ public:
   bool handle_message(const vgui_message& m);
   
   //: draw a hypothesized vehicle shape and pose
-  void draw_hypothesis(const modrec_vehicle_state& state);
+  void draw_hypothesis(const dml_vehicle_state& state);
   
   //: draw the current vehicle tracking states
   void draw_current_states();
   
   //: set the vehicle tracking states
-  void set_tracking_states(const vcl_vector<modrec_vehicle_state>& states);
+  void set_tracking_states(const vcl_vector<dml_vehicle_state>& states);
   
   //: set the history of vehicle tracking states indexed over frame number
-  void set_state_map(const vcl_map<unsigned int,vcl_vector<modrec_vehicle_state> >& state_map);
+  void set_state_map(const vcl_map<unsigned int,vcl_vector<dml_vehicle_state> >& state_map);
 
 private:
   void draw_texmap();
   void draw_texmap_parts();
   void draw_parts();
   //: Initialize the texture map for detailed meshes
-  void init_mesh_tex(modrec_pca_vehicle& mesh);
+  void init_mesh_tex(dml_pca_vehicle& mesh);
   void init_mesh();
   void build_mesh_node();
   void update_mesh_node();
@@ -272,22 +272,22 @@ private:
   SoSeparator* parts_node_;
   SoTransform* mesh_xform_;
 
-  modrec_pca_vehicle* mesh_;
-  modrec_pca_vehicle_projector mesh_projector_;
+  dml_pca_vehicle* mesh_;
+  dml_pca_vehicle_projector mesh_projector_;
   
   //: dodecahedral mesh
-  modrec_pca_vehicle dodec_mesh_;
+  dml_pca_vehicle dodec_mesh_;
   //: Ferryman's mesh
-  modrec_pca_vehicle ferryman_mesh_;
+  dml_pca_vehicle ferryman_mesh_;
   //: detailed mesh with parts at 3 resolutions
-  modrec_pca_vehicle detailed1_mesh_, detailed2_mesh_, detailed3_mesh_;
+  dml_pca_vehicle detailed1_mesh_, detailed2_mesh_, detailed3_mesh_;
   
 
   //: recorded tracking states indexed by frame number
-  vcl_map<unsigned int,vcl_vector<modrec_vehicle_state> > state_map_;
+  vcl_map<unsigned int,vcl_vector<dml_vehicle_state> > state_map_;
   
   //: the ground truth vehiclde mesh
-  modrec_pca_vehicle truth_mesh_;
+  dml_pca_vehicle truth_mesh_;
 
   vidl_istream_sptr istream_;
   int frame_number_;
@@ -307,9 +307,9 @@ private:
   double solar_utc_;
   double solar_atn_;
   
-  modrec_vehicle_fit* optimizer_;
-  modrec_vehicle_fit_multiview mv_optimizer_;
-  modrec_vehicle_fit_video video_optimizer_;
+  dml_vehicle_fit* optimizer_;
+  dml_vehicle_fit_multiview mv_optimizer_;
+  dml_vehicle_fit_video video_optimizer_;
 
   vcl_vector<vcl_pair<double,vnl_double_4> > vis_edgels_;
 

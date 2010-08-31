@@ -21,7 +21,7 @@
 #include <imesh/imesh_operations.h>
 #include <imesh/imesh_detection.h>
 #include <imesh/algo/imesh_intersect.h>
-#include <modrec/modrec_vehicle_parts.h>
+#include <dml/dml_vehicle_parts.h>
 
 
 
@@ -174,8 +174,8 @@ int main(int argc, char** argv)
   }
 
   if(a_svg_file.set())
-    modrec_write_svg(a_svg_file(), parts);
-  modrec_write_vehicle_parts(a_out_file(), parts);
+    dml_write_svg(a_svg_file(), parts);
+  dml_write_vehicle_parts(a_out_file(), parts);
 
   return 0;
 }

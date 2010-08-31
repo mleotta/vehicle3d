@@ -33,7 +33,7 @@ if(VXL_FOUND)
 
   add_subdirectory(vpro)
   add_subdirectory(klt)
-  add_subdirectory(modrec)
+  add_subdirectory(dml)
   add_subdirectory(cmd)
   add_subdirectory(gui)
 endif(VXL_FOUND)

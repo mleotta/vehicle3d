@@ -8,7 +8,7 @@
 
 #include <vcl_iostream.h>
 #include <vul/vul_arg.h>
-#include <modrec/modrec_vehicle_parts.h>
+#include <dml/dml_vehicle_parts.h>
 
 
 
@@ -27,9 +27,9 @@ int main(int argc, char** argv)
 
   typedef vcl_map<vcl_string, vgl_polygon<double> > pmap;
 
-  pmap parts = modrec_read_vehicle_parts(a_in_file());
+  pmap parts = dml_read_vehicle_parts(a_in_file());
 
-  modrec_write_svg(a_out_file(),parts);
+  dml_write_svg(a_out_file(),parts);
 
   return 0;
 

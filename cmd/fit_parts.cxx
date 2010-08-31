@@ -9,7 +9,7 @@
 #include <vcl_iostream.h>
 #include <vcl_limits.h>
 #include <vul/vul_arg.h>
-#include <modrec/modrec_vehicle_parts.h>
+#include <dml/dml_vehicle_parts.h>
 #include <vgl/vgl_closest_point.h>
 #include <vgl/vgl_area.h>
 #include <vgl/vgl_vector_2d.h>
@@ -109,12 +109,12 @@ int main(int argc, char** argv)
 
   typedef vcl_map<vcl_string, vgl_polygon<double> > pmap;
 
-  pmap iparts = modrec_read_vehicle_parts(a_in_file());
-  pmap mparts = modrec_read_vehicle_parts(a_model_file());
+  pmap iparts = dml_read_vehicle_parts(a_in_file());
+  pmap mparts = dml_read_vehicle_parts(a_model_file());
 
   pmap parts;
 
-  //modrec_write_svg(a_out_file(),parts);
+  //dml_write_svg(a_out_file(),parts);
   //return 0;
 
   for(pmap::const_iterator itr=mparts.begin(); itr!=mparts.end(); ++itr)
@@ -188,7 +188,7 @@ int main(int argc, char** argv)
 
   }
 
-  modrec_write_vehicle_parts(a_out_file(),parts);
+  dml_write_vehicle_parts(a_out_file(),parts);
 
   return 0;
 

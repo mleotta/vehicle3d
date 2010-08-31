@@ -11,7 +11,7 @@
 #include <vul/vul_file.h>
 #include <imesh/imesh_mesh.h>
 #include <imesh/imesh_fileio.h>
-#include <modrec/modrec_vehicle_mesh.h>
+#include <dml/dml_vehicle_mesh.h>
 
 
 
@@ -33,15 +33,15 @@ int main(int argc, char** argv)
   }
 
   vcl_map<vcl_string,double> params;
-  modrec_read_vehicle_params(a_in_file(),params);
+  dml_read_vehicle_params(a_in_file(),params);
 
   imesh_mesh mesh;
   if(a_dodec())
-    modrec_generate_dodec_vehicle(params, mesh);
+    dml_generate_dodec_vehicle(params, mesh);
   else if(a_ferryman())
-    modrec_generate_ferryman_vehicle(params, mesh);
+    dml_generate_ferryman_vehicle(params, mesh);
   else
-    modrec_generate_vehicle(params, mesh);
+    dml_generate_vehicle(params, mesh);
 
   imesh_write_obj(a_out_file(), mesh);
 

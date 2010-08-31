@@ -809,8 +809,8 @@ void pca_vehicle_frame::run_track_results(wxCommandEvent& event)
   vcl_string filename = static_cast<const char*>(file_dialog.GetPath().mb_str(wxConvUTF8));
   
   vcl_string vid_file, cam_file, model_type;
-  vcl_map<unsigned int,vcl_vector<modrec_vehicle_state> > state_map;
-  unsigned int start_frame = modrec_read_track_file(filename,vid_file,cam_file,model_type,state_map);
+  vcl_map<unsigned int,vcl_vector<dml_vehicle_state> > state_map;
+  unsigned int start_frame = dml_read_track_file(filename,vid_file,cam_file,model_type,state_map);
   
   // load video file
   vidl_istream_sptr is = new vidl_ffmpeg_istream(vid_file);
