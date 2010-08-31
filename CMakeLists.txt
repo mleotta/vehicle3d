@@ -31,7 +31,6 @@ if(VXL_FOUND)
   include_directories(SYSTEM ${VXL_GEL_INCLUDE_DIR}/mrc)
 
   add_subdirectory(vpro)
-  add_subdirectory(dbul)
   add_subdirectory(klt)
   add_subdirectory(modrec)
   add_subdirectory(cmd)

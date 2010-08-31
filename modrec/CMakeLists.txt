@@ -26,6 +26,8 @@ set(modrec_sources
   modrec_pca_vehicle.cxx            modrec_pca_vehicle.h
   modrec_pca_vehicle_projector.cxx  modrec_pca_vehicle_projector.h
 
+  modrec_solar_position.cxx         modrec_solar_position.h
+
   modrec_edgel.cxx                  modrec_edgel.h
 )
 
@@ -34,7 +36,7 @@ add_library(modrec  ${modrec_sources})
 target_link_libraries(modrec vpro vpro_filters bbgm rrel imesh_algo vpgl vil_algo klt)
 
 if( BUILD_TESTING )
-#  add_subdirectory(tests)
+  add_subdirectory(tests)
 endif()
 
 # Make the Python Module for running experiemnts
@@ -55,7 +57,7 @@ if( PYTHON_FOUND )
   endif(WIN32)
   set_target_properties(py_modrec PROPERTIES PREFIX "")
 
-  target_link_libraries(py_modrec modrec dbul)
+  target_link_libraries(py_modrec modrec)
 
   if (PYTHON_DEBUG_LIBRARIES)
     target_link_libraries( py_modrec debug ${PYTHON_DEBUG_LIBRARY})

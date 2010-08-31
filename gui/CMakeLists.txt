@@ -66,7 +66,7 @@ IF(wxWidgets_FOUND)
     
     WXWIDGETS_ADD_RESOURCES(pca_vehicle_wxgui_sources pca_vehicle.xrc)
     ADD_EXECUTABLE(pca_vehicle_wxgui WIN32 MACOSX_BUNDLE ${pca_vehicle_wxgui_sources})
-    TARGET_LINK_LIBRARIES(pca_vehicle_wxgui vgui_wx bgui3d bgui imesh modrec vidl_gui vil dbul gl2ps vpgl_algo)
+    TARGET_LINK_LIBRARIES(pca_vehicle_wxgui vgui_wx bgui3d bgui imesh modrec vidl_gui vil gl2ps vpgl_algo)
 
   ENDIF(VXL_VGUI_WX_FOUND)
 

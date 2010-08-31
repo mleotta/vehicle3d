@@ -38,7 +38,7 @@
 #include <vpro/vis/vpro_basic_gui_observers.h>
 
 #include <vul/vul_timer.h>
-#include <dbul/dbul_solar_position.h>
+#include <modrec/modrec_solar_position.h>
 
 #include <vidl/vidl_istream.h>
 #include <vidl/vidl_convert.h>
@@ -904,7 +904,7 @@ void pca_vehicle_manager::compute_sun_direction()
     }
 
     double alt,az;
-    dbul_solar_position(solar_day_, solar_utc_+rel_time, solar_lat_, solar_lon_, alt, az);
+    modrec_solar_position(solar_day_, solar_utc_+rel_time, solar_lat_, solar_lon_, alt, az);
     double sag = solar_atn_ - az;
     sun_dir_ = vgl_vector_3d<double>(-vcl_cos(sag)*vcl_cos(alt),
                                      -vcl_sin(sag)*vcl_cos(alt),

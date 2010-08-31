@@ -1,4 +1,4 @@
-// This is dbul/dbul_solar_position.cxx
+// This is modrec/modrec_solar_position.cxx
 #ifdef VCL_NEEDS_PRAGMA_INTERFACE
 #pragma implementation
 #endif
@@ -13,15 +13,15 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 //
 
-#include "dbul_solar_position.h"
+#include "modrec_solar_position.h"
 #include <vcl_cmath.h>
 
 
 //:  Compute position of the sun given time, date, and location
 void
-dbul_solar_position(int day, double utc_hour, 
-                    double lat, double lng,
-                    double& alt, double& az)
+modrec_solar_position(int day, double utc_hour,
+                      double lat, double lng,
+                      double& alt, double& az)
 {
   const double pi = 3.14159265358979323846;
   

@@ -24,7 +24,7 @@
 #include <imesh/algo/imesh_intersect.h>
 
 #include <vul/vul_file.h>
-#include <dbul/dbul_solar_position.h>
+#include <modrec/modrec_solar_position.h>
 
 #include <vidl/vidl_convert.h>
 #include <vidl/vidl_ffmpeg_istream.h>
@@ -247,7 +247,7 @@ void py_modrec_manager::compute_sun_direction()
     }
     
     double alt,az;
-    dbul_solar_position(solar_day_, solar_utc_+rel_time, solar_lat_, solar_lon_, alt, az);
+    modrec_solar_position(solar_day_, solar_utc_+rel_time, solar_lat_, solar_lon_, alt, az);
     double sag = solar_atn_ - az;
     sun_dir_ = vgl_vector_3d<double>(-vcl_cos(sag)*vcl_cos(alt),
                                      -vcl_sin(sag)*vcl_cos(alt),
