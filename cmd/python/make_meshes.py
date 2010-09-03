@@ -7,25 +7,25 @@
 
 import os, sys, glob, re
 
+from config import vehicle_cmd_dir
+
 src_path = sys.argv[1]
 
 ext = '_body.obj'
 
+make_vehicle_exec = os.path.join(vehicle_cmd_dir, 'make_vehicle_mesh')
 
-fit_exec = '/projects/lems/bin/release/contrib/mleotta/cmd/mesh/fit_mesh_body'
-
-def make_mesh(inname, basename, outname):
-    os.system(fit_exec+' -i \"'+inname+'\" -b \"'+basename+'\" -o \"'+outname+'\" -subdiv 3')
+def make_mesh(pname, outname):
+    os.system(make_vehicle_exec+' -i \"'+pname+'\" -o \"'+outname+'\" -f')
 
 for root, dirs, files in os.walk(src_path):
     for f in files:
         if f[-len(ext):] == ext:
             base_name = os.path.join(root,f[:-len(ext)])
-            out_name = base_name+'_m%u.obj'
-            body_name = base_name+'_body.obj'
-            in_name = base_name+'_m0.obj'
-            print "fitting mesh: "+base_name
-            make_mesh(in_name, body_name, out_name)
+            param_name = base_name+'.params'
+            out_name = base_name+'_ferryman.obj'
+            print "makeing mesh: "+base_name
+            make_mesh(param_name, out_name)
  
 
 
