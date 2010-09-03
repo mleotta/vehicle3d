@@ -5,7 +5,8 @@
 #          http://www.boost.org/LICENSE_1_0.txt)
 
 # cmd/CMakeLists.txt
-# Command line programs for mesh computations
+# Command line programs for used to learn the deformable mesh model.
+# The python subdirectory contains scripts to automate running these executables.
 
 INCLUDE_DIRECTORIES( ${VXL_GEL_INCLUDE_DIR} )
 
