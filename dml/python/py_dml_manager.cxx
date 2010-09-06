@@ -30,21 +30,21 @@
 #include <vidl/vidl_ffmpeg_istream.h>
 #include <vidl/vidl_image_list_istream.h>
 
-#include <vpro/vpro_observer.h>
+#include <spl/spl_observer.h>
 
 
 //: observer to capture current vehicle tracking states
-class track_observer: public vpro_observer
+class track_observer: public spl_observer
 {
 public:
   track_observer(py_dml_manager& m)
   : manager_(m) {}
   
   //: Called by the process when the data is ready
-  virtual bool notify(const vpro_storage_sptr& data, unsigned long timestamp)
+  virtual bool notify(const spl_storage_sptr& data, unsigned long timestamp)
   {
     assert(data);
-    if(data->info() == VPRO_VALID){
+    if(data->info() == SPL_VALID){
       assert(data->type_id() == typeid(vcl_vector<dml_vehicle_state>));
       const vcl_vector<dml_vehicle_state>& states = 
       data->data<vcl_vector<dml_vehicle_state> >();
@@ -635,9 +635,9 @@ void py_dml_manager::video_seek(int fnum)
 //: advance the video to the next frame
 bool py_dml_manager::advance_video()
 {  
-  vpro_signal s = video_optimizer_.process_once();
+  spl_signal s = video_optimizer_.process_once();
   compute_sun_direction();
-  if(s == VPRO_VALID )
+  if(s == SPL_VALID )
     return true;
   return false;
 }

@@ -68,7 +68,7 @@ public:
   
   
   //: advance the video and process on frame
-  vpro_signal process_once() { return tracker_.process_once(); }
+  spl_signal process_once() { return tracker_.process_once(); }
   
   //: enable tracking (otherwise only BG modeling is run)
   void enable_tracking(bool enable) { tracker_.enable_tracking(enable); }

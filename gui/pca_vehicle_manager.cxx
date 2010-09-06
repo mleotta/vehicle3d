@@ -35,7 +35,7 @@
 
 #include <bgui/bgui_selector_tableau.h>
 #include <bgui/bgui_image_tableau.h>
-#include <vpro/vis/vpro_basic_gui_observers.h>
+#include <spl/vis/spl_basic_gui_observers.h>
 
 #include <vul/vul_timer.h>
 #include <dml/dml_solar_position.h>
@@ -77,14 +77,14 @@
 #include <Inventor/nodes/SoIndexedLineSet.h>
 
 //: observer to clear vis_edgels_
-class clear_vis_edgels_observer: public vpro_observer
+class clear_vis_edgels_observer: public spl_observer
 {
 public:
   clear_vis_edgels_observer(vcl_vector<vcl_pair<double,vnl_double_4> >& vis_edgels)
   : vis_edgels_(vis_edgels) {}
   
   //: Called by the process when the data is ready
-  virtual bool notify(const vpro_storage_sptr& data, unsigned long timestamp)
+  virtual bool notify(const spl_storage_sptr& data, unsigned long timestamp)
   {
     vis_edgels_.clear();
     return true;
@@ -94,17 +94,17 @@ public:
 
 
 //: observer to draw hypotheses
-class hypothesis_observer: public vpro_observer
+class hypothesis_observer: public spl_observer
 {
 public:
   hypothesis_observer(pca_vehicle_manager& m)
   : manager_(m) {}
   
   //: Called by the process when the data is ready
-  virtual bool notify(const vpro_storage_sptr& data, unsigned long timestamp)
+  virtual bool notify(const spl_storage_sptr& data, unsigned long timestamp)
   {
     assert(data);
-    if(data->info() == VPRO_VALID){
+    if(data->info() == SPL_VALID){
       assert(data->type_id() == typeid(vcl_vector<dml_vehicle_state>));
       const vcl_vector<dml_vehicle_state>& states = 
           data->data<vcl_vector<dml_vehicle_state> >();
@@ -120,17 +120,17 @@ public:
 
 
 //: observer to capture current vehicle tracking states
-class track_observer: public vpro_observer
+class track_observer: public spl_observer
 {
 public:
   track_observer(pca_vehicle_manager& m)
   : manager_(m) {}
   
   //: Called by the process when the data is ready
-  virtual bool notify(const vpro_storage_sptr& data, unsigned long timestamp)
+  virtual bool notify(const spl_storage_sptr& data, unsigned long timestamp)
   {
     assert(data);
-    if(data->info() == VPRO_VALID){
+    if(data->info() == SPL_VALID){
       assert(data->type_id() == typeid(vcl_vector<dml_vehicle_state>));
       const vcl_vector<dml_vehicle_state>& states = 
           data->data<vcl_vector<dml_vehicle_state> >();
@@ -144,18 +144,18 @@ public:
 
 
 //: observer to draw polygons
-class polygon_observer: public vpro_observer
+class polygon_observer: public spl_observer
 {
 public:
   polygon_observer(const vgui_easy2D_tableau_sptr& tab)
   : easy2D_tab_(tab) {}
   
   //: Called by the process when the data is ready
-  virtual bool notify(const vpro_storage_sptr& data, unsigned long timestamp)
+  virtual bool notify(const spl_storage_sptr& data, unsigned long timestamp)
   {
     assert(easy2D_tab_);
     assert(data);
-    if(data->info() == VPRO_VALID){
+    if(data->info() == SPL_VALID){
       assert(data->type_id() == typeid(vcl_vector<vgl_polygon<double> >));
       const vcl_vector<vgl_polygon<double> >& polys = 
       data->data<vcl_vector<vgl_polygon<double> > >();
@@ -181,18 +181,18 @@ public:
 
 
 //: observer to draw polygons
-class point_observer: public vpro_observer
+class point_observer: public spl_observer
 {
 public:
   point_observer(const vgui_easy2D_tableau_sptr& tab)
   : easy2D_tab_(tab) {}
   
   //: Called by the process when the data is ready
-  virtual bool notify(const vpro_storage_sptr& data, unsigned long timestamp)
+  virtual bool notify(const spl_storage_sptr& data, unsigned long timestamp)
   {
     assert(easy2D_tab_);
     assert(data);
-    if(data->info() == VPRO_VALID){
+    if(data->info() == SPL_VALID){
       assert(data->type_id() == typeid(vcl_vector<vgl_point_2d<double> >));
       const vcl_vector<vgl_point_2d<double> >& pts = 
          data->data<vcl_vector<vgl_point_2d<double> > >();
@@ -210,19 +210,19 @@ public:
 
 
 //: observer to draw optical flow vectors
-class opt_flow_observer: public vpro_observer
+class opt_flow_observer: public spl_observer
 {
 public:
   opt_flow_observer(const vgui_easy2D_tableau_sptr& tab)
   : easy2D_tab_(tab) {}
   
   //: Called by the process when the data is ready
-  virtual bool notify(const vpro_storage_sptr& data, unsigned long timestamp)
+  virtual bool notify(const spl_storage_sptr& data, unsigned long timestamp)
   {
     assert(easy2D_tab_);
     assert(data);
     typedef vcl_pair<vgl_point_2d<double>,vgl_vector_2d<double> > pv_pair;
-    if(data->info() == VPRO_VALID){
+    if(data->info() == SPL_VALID){
       assert(data->type_id() == typeid(vcl_vector<pv_pair>));
       const vcl_vector<pv_pair>& flow = data->data<vcl_vector<pv_pair> >();
       //easy2D_tab_->clear();
@@ -485,10 +485,10 @@ vgui_tableau_sptr pca_vehicle_manager::init_proj_view()
   selector_tab_->add(detect_tab_,"Vehicle Detection");
   selector_tab_->add(gnd_cal_tab_,"Calibration");
   
-  video_optimizer_.tracker().add_video_observer(new vpro_image_observer(image_tab_));
-  //video_optimizer_.tracker().add_bg_observer(new vpro_image_observer(debug_image_tab_));
+  video_optimizer_.tracker().add_video_observer(new spl_image_observer(image_tab_));
+  //video_optimizer_.tracker().add_bg_observer(new spl_image_observer(debug_image_tab_));
   video_optimizer_.tracker().add_edgemap_observer(new clear_vis_edgels_observer(vis_edgels_));
-  video_optimizer_.tracker().add_edgemap_observer(new vpro_image_observer(edge_map_tab_));
+  video_optimizer_.tracker().add_edgemap_observer(new spl_image_observer(edge_map_tab_));
   video_optimizer_.tracker().add_silhouette_observer(new polygon_observer(detect_tab_));
   video_optimizer_.tracker().add_hypotheses_observer(new hypothesis_observer(*this));
   video_optimizer_.tracker().add_track_observer(new track_observer(*this));
@@ -496,7 +496,7 @@ vgui_tableau_sptr pca_vehicle_manager::init_proj_view()
   
   video_optimizer_.tracker().enable_display(false);
   
-  //video_optimizer_.tracker().add_pointmap_observer(new vpro_image_observer(debug_image_tab_));
+  //video_optimizer_.tracker().add_pointmap_observer(new spl_image_observer(debug_image_tab_));
   //video_optimizer_.tracker().add_point_observer(new point_observer(detect_tab_));
 
   scene_handler_tableau_new handler(this,selector_tab_);
@@ -1179,9 +1179,9 @@ bool pca_vehicle_manager::advance_video()
     return true;
   }
   
-  vpro_signal s = video_optimizer_.process_once();
+  spl_signal s = video_optimizer_.process_once();
   compute_sun_direction();
-  if(s == VPRO_VALID )
+  if(s == SPL_VALID )
     return true;
   return false;
 }

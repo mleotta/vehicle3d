@@ -1,0 +1,26 @@
+#ifndef spl_config_h_
+#define spl_config_h_
+
+//          Copyright Matthew Leotta 2006 - 2010.
+// Distributed under the Boost Software License, Version 1.0.
+//    (See accompanying file ../LICENSE_1_0.txt or copy at
+//          http://www.boost.org/LICENSE_1_0.txt)
+
+
+// If the suffix of this file is ".in", this is the source file used
+// to generate the actual configuration file.  To examine the actual
+// configuration of the library, look at the spl_config.h file in
+// the _build_ tree.
+
+#cmakedefine CMAKE_USE_PTHREADS_INIT
+#ifdef CMAKE_USE_PTHREADS_INIT
+#define SPL_HAS_PTHREADS 1
+#else
+#define SPL_HAS_PTHREADS 0
+#endif
+#undef CMAKE_USE_PTHREADS_INIT
+
+
+
+#endif //spl_config_h_
+

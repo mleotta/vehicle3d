@@ -31,7 +31,7 @@ if(VXL_FOUND)
   include_directories(SYSTEM ${VXL_BRL_INCLUDE_DIR})
   include_directories(SYSTEM ${VXL_GEL_INCLUDE_DIR}/mrc)
 
-  add_subdirectory(vpro)
+  add_subdirectory(spl)
   add_subdirectory(klt)
   add_subdirectory(dml)
   add_subdirectory(cmd)

@@ -18,17 +18,17 @@
 #include <dml/dml_vehicle_track_init.h>
 #include <dml/dml_vehicle_fit_video.h>
 
-#include <vpro/vpro_delay.h>
-#include <vpro/vpro_basic_processes.h>
-#include <vpro/filters/vidl_source.h>
-#include <vpro/filters/vidl_frame_to_resource.h>
-#include <vpro/filters/vil_gauss_filter.h>
-#include <vpro/filters/vil_sobel_1x3_filter.h>
-#include <vpro/filters/vil_subpix_edge_filter.h>
-#include <vpro/filters/vil_grad_sqr_filter.h>
-#include <vpro/filters/vil_transform3_1_filter.h>
-#include <vpro/filters/vil_morphology_filters.h>
-#include <vpro/filters/bbgm_filters.h>
+#include <spl/spl_delay.h>
+#include <spl/spl_basic_processes.h>
+#include <spl/filters/vidl_source.h>
+#include <spl/filters/vidl_frame_to_resource.h>
+#include <spl/filters/vil_gauss_filter.h>
+#include <spl/filters/vil_sobel_1x3_filter.h>
+#include <spl/filters/vil_subpix_edge_filter.h>
+#include <spl/filters/vil_grad_sqr_filter.h>
+#include <spl/filters/vil_transform3_1_filter.h>
+#include <spl/filters/vil_morphology_filters.h>
+#include <spl/filters/bbgm_filters.h>
 
 #include <vpdl/vpdt/vpdt_gaussian.h>
 #include <vpdl/vpdt/vpdt_mixture_of.h>
@@ -193,7 +193,7 @@ void vpdt_update_gaussian(vpdt_gaussian<vnl_vector_fixed<float,3>,
 
 
 //: Extract the subpixel locations and an existence mask
-class extract_subpix_filter : public vpro_filter
+class extract_subpix_filter : public spl_filter
 {
 public:
   
@@ -204,16 +204,16 @@ public:
   virtual ~extract_subpix_filter(){}
   
   //: Execute this process
-  vpro_signal execute()
+  spl_signal execute()
   {
     assert(input_type_id(0) == typeid(vil_image_resource_sptr));
     vil_image_resource_sptr image = input<vil_image_resource_sptr>(0);
     if(!image)
-      return VPRO_INVALID;
+      return SPL_INVALID;
     
     vil_image_view<float> edge_map = image->get_view();
     if(!edge_map)
-      return VPRO_INVALID;
+      return SPL_INVALID;
     
     const unsigned int ni = edge_map.ni();
     const unsigned int nj = edge_map.nj();
@@ -244,14 +244,14 @@ public:
     output(0,vil_new_image_resource_of_view(edgels));
     output(1,vil_new_image_resource_of_view(mask));
     
-    return VPRO_VALID;
+    return SPL_VALID;
   }
 
 };
 
 
 //: Estimate a translation to align the edge maps
-class est_translation_filter : public vpro_filter
+class est_translation_filter : public spl_filter
 {
 public:
   
@@ -262,25 +262,25 @@ public:
   virtual ~est_translation_filter(){}
   
   //: Execute this process
-  vpro_signal execute()
+  spl_signal execute()
   {
     assert(input_type_id(0) == typeid(vil_image_resource_sptr));
     vil_image_resource_sptr last_image = input<vil_image_resource_sptr>(0);
     if(!last_image){
       vcl_cout << "first image"<< vcl_endl;
       output(0,vnl_vector_fixed<double,2>(0,0));
-      return VPRO_VALID;
+      return SPL_VALID;
     }
     
     assert(input_type_id(1) == typeid(vil_image_resource_sptr));
     vil_image_resource_sptr curr_image = input<vil_image_resource_sptr>(1);
     if(!curr_image)
-      return VPRO_INVALID;
+      return SPL_INVALID;
     
     vil_image_view<float> last = last_image->get_view();
     vil_image_view<float> curr = curr_image->get_view();
     if(!last || !curr)
-      return VPRO_INVALID;
+      return SPL_INVALID;
     
     const unsigned int ni = last.ni();
     const unsigned int nj = last.nj();
@@ -325,14 +325,14 @@ public:
     
     output(0,vnl_vector_fixed<double,2>(ox,oy));
     
-    return VPRO_VALID;
+    return SPL_VALID;
   }
   
 };
 
 
 //: Align the edge maps with a translation
-class edgemap_translation_filter : public vpro_filter
+class edgemap_translation_filter : public spl_filter
 {
 public:
   
@@ -343,12 +343,12 @@ public:
   virtual ~edgemap_translation_filter(){}
   
   //: Execute this process
-  vpro_signal execute()
+  spl_signal execute()
   {
     assert(input_type_id(0) == typeid(vil_image_resource_sptr));
     vil_image_resource_sptr image = input<vil_image_resource_sptr>(0);
     if(!image)
-      return VPRO_INVALID;
+      return SPL_INVALID;
     
     vil_image_view<float> in_edge_map = image->get_view();
     
@@ -373,14 +373,14 @@ public:
     
     output(0, vil_new_image_resource_of_view(out_edge_map));
     
-    return VPRO_VALID;
+    return SPL_VALID;
   }
   
 };
 
 
 //: mask some edges in an edgemap
-class mask_edgemap_filter : public vpro_filter
+class mask_edgemap_filter : public spl_filter
 {
 public:
   
@@ -391,19 +391,19 @@ public:
   virtual ~mask_edgemap_filter(){}
   
   //: Execute this process
-  vpro_signal execute()
+  spl_signal execute()
   {
     assert(input_type_id(0) == typeid(vil_image_resource_sptr));
     vil_image_resource_sptr image = input<vil_image_resource_sptr>(0);
     if(!image)
-      return VPRO_INVALID;
+      return SPL_INVALID;
     
     vil_image_view<float> in_edge_map = image->get_view();
     
     assert(input_type_id(1) == typeid(vil_image_resource_sptr));
     vil_image_resource_sptr mask_image = input<vil_image_resource_sptr>(1);
     if(!mask_image)
-      return VPRO_INVALID;
+      return SPL_INVALID;
     
     vil_image_view<bool> mask = mask_image->get_view();
     
@@ -429,21 +429,21 @@ public:
     
     output(0, vil_new_image_resource_of_view(out_edge_map));
     
-    return VPRO_VALID;
+    return SPL_VALID;
   }
   
 };
 
 
 //: Suppress all non-maximal edges and estimate subpixel locations
-class vil_subpix_point_filter : public vpro_filter
+class vil_subpix_point_filter : public spl_filter
 {
 public:
   //: Constructor
   vil_subpix_point_filter(float threshold=10.0f) : threshold_(threshold) {}
   
   //: Execute this process
-  vpro_signal execute()
+  spl_signal execute()
   {
     assert(input_type_id(0) == typeid(vil_image_resource_sptr));
     vil_image_resource_sptr in_img = input<vil_image_resource_sptr>(0);
@@ -457,7 +457,7 @@ public:
       pts[i].set(px[i],py[i]);
     
     output(0, pts);
-    return VPRO_VALID;
+    return SPL_VALID;
   }
   
   float threshold_;
@@ -466,7 +466,7 @@ public:
 
 
 //: detect blobs in a BG detection image
-class blob_detector_filter : public vpro_filter
+class blob_detector_filter : public spl_filter
 {
 public:
   
@@ -477,12 +477,12 @@ public:
   virtual ~blob_detector_filter(){}
   
   //: Execute this process
-  vpro_signal execute()
+  spl_signal execute()
   {
     assert(input_type_id(0) == typeid(vil_image_resource_sptr));
     vil_image_resource_sptr image = input<vil_image_resource_sptr>(0);
     if(!image)
-      return VPRO_INVALID;
+      return SPL_INVALID;
     
     vil_image_view<bool> bin_image = image->get_view();
 
@@ -524,7 +524,7 @@ public:
     
     output(0, polys);
     
-    return VPRO_VALID;
+    return SPL_VALID;
   }
   double min_area_;
   vil_image_view<bool> work_image_;
@@ -532,7 +532,7 @@ public:
 
 
 //: Compute KLT tracked points
-class klt_flow_filter : public vpro_filter
+class klt_flow_filter : public spl_filter
 {
 public:
   
@@ -550,7 +550,7 @@ public:
   }
   
   //: Execute this process
-  vpro_signal execute()
+  spl_signal execute()
   {
     typedef vcl_pair<vgl_point_2d<double>,vgl_vector_2d<double> > pv_pair;
     vcl_vector<pv_pair> flow;
@@ -558,7 +558,7 @@ public:
     assert(input_type_id(0) == typeid(vil_image_resource_sptr));
     vil_image_resource_sptr image1 = input<vil_image_resource_sptr>(0);
     if(!image1)
-      return VPRO_INVALID;
+      return SPL_INVALID;
     
     assert(input_type_id(1) == typeid(vcl_vector<vgl_point_2d<double> >));
     vcl_vector<vgl_point_2d<double> > pts = 
@@ -575,7 +575,7 @@ public:
       vcl_cout << "sizeof(vxl_byte) " << sizeof(vxl_byte)
                <<" sizeof(KLT_PixelType) "<<sizeof(KLT_PixelType)<<vcl_endl;
       output(0, flow);
-      return VPRO_VALID;
+      return SPL_VALID;
     }
     curr_image_.set_size(ni,nj);
     vil_convert_cast(img1,curr_image_);
@@ -613,7 +613,7 @@ public:
      
     output(0, flow);
     
-    return VPRO_VALID;
+    return SPL_VALID;
   }
   
   KLT_TrackingContext klt_tc_;
@@ -624,7 +624,7 @@ public:
 
 
 //: Adjust the flow vectors with the translation
-class flow_translation_filter : public vpro_filter
+class flow_translation_filter : public spl_filter
 {
 public:
   
@@ -635,7 +635,7 @@ public:
   virtual ~flow_translation_filter(){}
   
   //: Execute this process
-  vpro_signal execute()
+  spl_signal execute()
   {
     
     typedef vcl_pair<vgl_point_2d<double>,vgl_vector_2d<double> > pv_pair;
@@ -645,7 +645,7 @@ public:
     
     if(flow.empty()){
       output(0, flow);
-      return VPRO_VALID;
+      return SPL_VALID;
     }
     
     assert(input_type_id(1) == typeid(vnl_vector_fixed<double,2>));
@@ -667,14 +667,14 @@ public:
     
     output(0, t_flow);
     
-    return VPRO_VALID;
+    return SPL_VALID;
   }
   
 };
 
 
 //: initialize tracks of vehicles
-class track_init_filter : public vpro_filter
+class track_init_filter : public spl_filter
 {
 public:
   track_init_filter(const vpgl_perspective_camera<double>& cam = vpgl_perspective_camera<double>())
@@ -684,7 +684,7 @@ public:
   virtual ~track_init_filter(){}
   
   //: Execute this process
-  vpro_signal execute()
+  spl_signal execute()
   {
     typedef vcl_pair<vgl_point_2d<double>,vgl_vector_2d<double> > pv_pair;
     
@@ -701,18 +701,18 @@ public:
     
     if(!tracking_enabled_){
       output(0, vcl_vector<dml_vehicle_state>());
-      return VPRO_VALID;
+      return SPL_VALID;
     }
     
     if(silhouettes.empty()){
       output(0, states);
-      return VPRO_VALID;
+      return SPL_VALID;
     }
     
     track_init_.find_states(silhouettes, flow, states);
     output(0, states);
     
-    return VPRO_VALID;
+    return SPL_VALID;
   }
   
   //: Helper class to initialize tracks 
@@ -736,7 +736,7 @@ float min_eigenvalue(float a, float b, float c){
 
 
 //: correct track positions by fitting to images
-class track_correct_filter : public vpro_filter
+class track_correct_filter : public spl_filter
 {
 public:
   track_correct_filter(dml_vehicle_fit_video* optimizer)
@@ -746,7 +746,7 @@ public:
   virtual ~track_correct_filter(){}
   
   //: Execute this process
-  vpro_signal execute()
+  spl_signal execute()
   {
     
     assert(input_type_id(0) == typeid(vcl_vector<dml_vehicle_state>));
@@ -764,7 +764,7 @@ public:
     
     output(0, states);
     
-    return VPRO_VALID;
+    return SPL_VALID;
   }
   
   dml_vehicle_fit_video* optimizer_;
@@ -772,7 +772,7 @@ public:
 
 
 //: predict tracks changes with a motion model 
-class track_predict_filter : public vpro_filter
+class track_predict_filter : public spl_filter
 {
 public:
   track_predict_filter(double t=1.0/30) : time_(t) {}
@@ -781,7 +781,7 @@ public:
   virtual ~track_predict_filter(){}
   
   //: Execute this process
-  vpro_signal execute()
+  spl_signal execute()
   {
     
     assert(input_type_id(0) == typeid(vcl_vector<dml_vehicle_state>));
@@ -795,7 +795,7 @@ public:
     
     output(0, pstates);
     
-    return VPRO_VALID;
+    return SPL_VALID;
   }
   
   //: the time interval between frames
@@ -805,13 +805,13 @@ public:
 
 
 // a null sink that allows disabling
-class optional_sink : public vpro_sink
+class optional_sink : public spl_sink
 {
 public:
   optional_sink() : enabled_(true) {}
   
   //: Execute the process
-  vpro_signal execute() { return VPRO_VALID; }
+  spl_signal execute() { return SPL_VALID; }
   
   virtual bool enabled() const { return enabled_; }
   
@@ -845,11 +845,11 @@ dml_vehicle_tracker::dml_vehicle_tracker(dml_vehicle_fit_video* optimizer)
                                                      vidl_frame_to_resource::PLANES,
                                                      vidl_frame_to_resource::ALLOCATE_MEMORY);
                                                      //vidl_frame_to_resource::REUSE_MEMORY);
-  graph_["gauss_img"]   = new vil_vpro_gauss_filter<vxl_byte,float>();
+  graph_["gauss_img"]   = new vil_spl_gauss_filter<vxl_byte,float>();
   graph_["grad_ij"]     = new vil_sobel_1x3_filter<float,float>();
   graph_["edge_map"]    = new vil_subpix_edge_filter<float,float>();
   graph_["grad2"]       = new vil_grad_sqr_filter<float,float>();
-  graph_["gauss_grad2"] = new vil_vpro_gauss_filter<float,float>();
+  graph_["gauss_grad2"] = new vil_spl_gauss_filter<float,float>();
   typedef float (*eig_func_ptr)(float a, float b, float c);
   graph_["min_eigval"]  = new vil_transform3_1_filter<float,float,eig_func_ptr>(min_eigenvalue);
   graph_["klt_pts"]     = new vil_subpix_point_filter();
@@ -859,26 +859,26 @@ dml_vehicle_tracker::dml_vehicle_tracker(dml_vehicle_fit_video* optimizer)
   graph_["bin_erode2"]  = new vil_binary_erode_filter(se);
   graph_["bin_dilate2"] = new vil_binary_dilate_filter(se);
   
-  graph_["e_delay"]     = new vpro_delay(1,vil_image_resource_sptr(NULL));
+  graph_["e_delay"]     = new spl_delay(1,vil_image_resource_sptr(NULL));
   graph_["est_t"]       = new est_translation_filter();
-  graph_["t_delay"]     = new vpro_delay(1,vnl_vector_fixed<double,2>(0.0,0.0));
+  graph_["t_delay"]     = new spl_delay(1,vnl_vector_fixed<double,2>(0.0,0.0));
   graph_["t_edge_map"]  = new edgemap_translation_filter();
   graph_["m_edge_map"]  = new mask_edgemap_filter();
   
   graph_["x_edgels"]    = new extract_subpix_filter();
   graph_["blob_detect"] = new blob_detector_filter();
   graph_["track_init"]  = new track_init_filter();
-  graph_["s_delay"]     = new vpro_delay(1,vcl_vector<dml_vehicle_state>());
+  graph_["s_delay"]     = new spl_delay(1,vcl_vector<dml_vehicle_state>());
   graph_["trk_predict"] = new track_predict_filter();
   graph_["trk_correct"] = new track_correct_filter(optimizer);
   
   graph_["opt_flow"]    = new klt_flow_filter();
   graph_["t_flow"]      = new flow_translation_filter();
-  //graph_["f_delay"]     = new vpro_delay(1,vil_image_resource_sptr(NULL));
+  //graph_["f_delay"]     = new spl_delay(1,vil_image_resource_sptr(NULL));
   
   graph_["disp_sink"]   = new optional_sink();
   graph_["trk_sink"]    = new optional_sink();
-  graph_["bgm_sink"]    = new vpro_null_sink();
+  graph_["bgm_sink"]    = new spl_null_sink();
   
   
   // intensity background modeling
@@ -990,7 +990,7 @@ void dml_vehicle_tracker::init_bgm_pro()
   
   graph_["bg_update"]   = new bbgm_update_filter<updater_type,vxl_byte>(updater);
   graph_["bg_detect"]   = new bbgm_detect_filter<detector_type,vxl_byte>(detector);
-  graph_["bg_delay"]    = new vpro_delay(1,bg_model);
+  graph_["bg_delay"]    = new spl_delay(1,bg_model);
 }
 
 
@@ -1022,7 +1022,7 @@ void dml_vehicle_tracker::init_ebgm_pro()
   
   graph_["bge_update"]   = new bbgm_update_filter<updater_type,float>(updater);
   graph_["bge_detect"]   = new bbgm_detect_filter<detector_type,float>(detector);
-  graph_["bge_delay"]    = new vpro_delay(1,bg_model);
+  graph_["bge_delay"]    = new spl_delay(1,bg_model);
 }
 
 
@@ -1067,7 +1067,7 @@ void dml_vehicle_tracker::set_istream(const vidl_istream_sptr& istream)
 
 
 //: add an observer of input video frames 
-void dml_vehicle_tracker::add_video_observer(const vpro_observer_sptr& obs)
+void dml_vehicle_tracker::add_video_observer(const spl_observer_sptr& obs)
 {
   assert(graph_["to_resource"].ptr());
   graph_["to_resource"]->add_output_observer(0,obs);
@@ -1075,7 +1075,7 @@ void dml_vehicle_tracker::add_video_observer(const vpro_observer_sptr& obs)
 
 
 //: add an observer of the background detection image
-void dml_vehicle_tracker::add_bg_observer(const vpro_observer_sptr& obs)
+void dml_vehicle_tracker::add_bg_observer(const spl_observer_sptr& obs)
 {
   //assert(graph_["bg_detect"].ptr());
   //graph_["bg_detect"]->add_output_observer(0,obs);
@@ -1085,7 +1085,7 @@ void dml_vehicle_tracker::add_bg_observer(const vpro_observer_sptr& obs)
 
 
 //: add an observer of detected vehicle silhouette polygons
-void dml_vehicle_tracker::add_silhouette_observer(const vpro_observer_sptr& obs)
+void dml_vehicle_tracker::add_silhouette_observer(const spl_observer_sptr& obs)
 {
   assert(graph_["blob_detect"].ptr());
   graph_["blob_detect"]->add_output_observer(0,obs);
@@ -1093,7 +1093,7 @@ void dml_vehicle_tracker::add_silhouette_observer(const vpro_observer_sptr& obs)
 
 
 //: add an observer of detected vehicle hypotheses
-void dml_vehicle_tracker::add_hypotheses_observer(const vpro_observer_sptr& obs)
+void dml_vehicle_tracker::add_hypotheses_observer(const spl_observer_sptr& obs)
 {
   assert(graph_["track_init"].ptr());
   graph_["track_init"]->add_output_observer(0,obs);
@@ -1101,7 +1101,7 @@ void dml_vehicle_tracker::add_hypotheses_observer(const vpro_observer_sptr& obs)
 
 
 //: add an observer of the vehicle tracks
-void dml_vehicle_tracker::add_track_observer(const vpro_observer_sptr& obs)
+void dml_vehicle_tracker::add_track_observer(const spl_observer_sptr& obs)
 {
   assert(graph_["trk_correct"].ptr());
   graph_["trk_correct"]->add_output_observer(0,obs);
@@ -1109,7 +1109,7 @@ void dml_vehicle_tracker::add_track_observer(const vpro_observer_sptr& obs)
 
 
 //: add an observer of the edge map image
-void dml_vehicle_tracker::add_edgemap_observer(const vpro_observer_sptr& obs)
+void dml_vehicle_tracker::add_edgemap_observer(const spl_observer_sptr& obs)
 {
   assert(graph_["m_edge_map"].ptr());
   graph_["m_edge_map"]->add_output_observer(0,obs);
@@ -1117,7 +1117,7 @@ void dml_vehicle_tracker::add_edgemap_observer(const vpro_observer_sptr& obs)
 
 
 //: add an observer of the optical flow
-void dml_vehicle_tracker::add_optical_flow_observer(const vpro_observer_sptr& obs)
+void dml_vehicle_tracker::add_optical_flow_observer(const spl_observer_sptr& obs)
 {
   assert(graph_["t_flow"].ptr());
   graph_["t_flow"]->add_output_observer(0,obs);
@@ -1125,7 +1125,7 @@ void dml_vehicle_tracker::add_optical_flow_observer(const vpro_observer_sptr& ob
 
 
 //: add an observer of the point map image
-void dml_vehicle_tracker::add_pointmap_observer(const vpro_observer_sptr& obs)
+void dml_vehicle_tracker::add_pointmap_observer(const spl_observer_sptr& obs)
 {
   assert(graph_["min_eigval"].ptr());
   graph_["min_eigval"]->add_output_observer(0,obs);
@@ -1133,7 +1133,7 @@ void dml_vehicle_tracker::add_pointmap_observer(const vpro_observer_sptr& obs)
 
 
 //: add an observer of the points
-void dml_vehicle_tracker::add_point_observer(const vpro_observer_sptr& obs)
+void dml_vehicle_tracker::add_point_observer(const spl_observer_sptr& obs)
 {
   assert(graph_["klt_pts"].ptr());
   graph_["klt_pts"]->add_output_observer(0,obs);

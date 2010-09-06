@@ -1,0 +1,15 @@
+// The following text is included in the main documentation page by doxygen
+/*! \mainpage spl : Video Processing Library
+* This library provides a set of base classes for process, storage, and parameters object.
+*
+* \section spl_overview Overview
+*
+* The spl_storage class is an abstract base class for 
+* derived storage classes that may store any type of data.  The spl_process class
+* is an abstract base class for derived process classes that execute various algorithms
+* Thus, a spl_storage class is a wrapper around your data structures while a
+* spl_process is a wrapper around your algorithm.  Additional parameters to a
+* process are managed by the spl_parameters class. 
+*
+*
+*/

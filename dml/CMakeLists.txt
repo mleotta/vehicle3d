@@ -33,7 +33,7 @@ set(dml_sources
 
 add_library(dml  ${dml_sources})
 
-target_link_libraries(dml vpro vpro_filters bbgm rrel imesh_algo vpgl vil_algo klt)
+target_link_libraries(dml spl spl_filters bbgm rrel imesh_algo vpgl vil_algo klt)
 
 if( BUILD_TESTING )
   add_subdirectory(tests)

@@ -20,7 +20,7 @@
 //=========================================================================
 
 
-#include <vpro/vpro_executive.h>
+#include <spl/spl_executive.h>
 #include <vpgl/vpgl_perspective_camera.h>
 #include <vidl/vidl_istream_sptr.h>
 #include <dml/dml_pca_vehicle.h>
@@ -47,31 +47,31 @@ public:
   void set_istream(const vidl_istream_sptr& istream);
   
   //: add an observer of input video frames 
-  void add_video_observer(const vpro_observer_sptr& obs);
+  void add_video_observer(const spl_observer_sptr& obs);
   
   //: add an observer of the background detection image
-  void add_bg_observer(const vpro_observer_sptr& obs);
+  void add_bg_observer(const spl_observer_sptr& obs);
   
   //: add an observer of detected vehicle silhouette polygons
-  void add_silhouette_observer(const vpro_observer_sptr& obs);
+  void add_silhouette_observer(const spl_observer_sptr& obs);
   
   //: add an observer of detected vehicle hypotheses
-  void add_hypotheses_observer(const vpro_observer_sptr& obs);
+  void add_hypotheses_observer(const spl_observer_sptr& obs);
   
   //: add an observer of the vehicle tracks
-  void add_track_observer(const vpro_observer_sptr& obs);
+  void add_track_observer(const spl_observer_sptr& obs);
   
   //: add an observer of the edge map image
-  void add_edgemap_observer(const vpro_observer_sptr& obs);
+  void add_edgemap_observer(const spl_observer_sptr& obs);
   
   //: add an observer of the point map image
-  void add_pointmap_observer(const vpro_observer_sptr& obs);
+  void add_pointmap_observer(const spl_observer_sptr& obs);
   
   //: add an observer of the points
-  void add_point_observer(const vpro_observer_sptr& obs);
+  void add_point_observer(const spl_observer_sptr& obs);
   
   //: add an observer of the optical flow
-  void add_optical_flow_observer(const vpro_observer_sptr& obs);
+  void add_optical_flow_observer(const spl_observer_sptr& obs);
   
   //: enable tracking
   void enable_tracking(bool enable_track);
@@ -83,7 +83,7 @@ public:
   void set_estimate_shape(bool val);
   
   //: advance the video and process on frame
-  vpro_signal process_once() { return graph_.run_step(); }
+  spl_signal process_once() { return graph_.run_step(); }
 
 private:
   //: initialize the intensity background modeling processes
@@ -93,7 +93,7 @@ private:
   void init_ebgm_pro();
   
   //: store the process graph
-  vpro_executive graph_;
+  spl_executive graph_;
 };
 
 
