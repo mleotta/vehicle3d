@@ -15,7 +15,7 @@ ADD_EXECUTABLE( dml_test_all
 TARGET_LINK_LIBRARIES( dml_test_all dml testlib  )
 
 
-ADD_TEST( dml_test_solar_position      dml_test_all test_solar_position )
+ADD_TEST( dml_test_solar_position   ${EXECUTABLE_OUTPUT_PATH}/dml_test_all test_solar_position )
 
 ADD_EXECUTABLE( dml_test_include test_include.cxx )
 

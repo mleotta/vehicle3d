@@ -18,10 +18,10 @@ ADD_EXECUTABLE( vpro_test_all
 
 TARGET_LINK_LIBRARIES( vpro_test_all vpro testlib  )
 
-ADD_TEST( vpro_test_process          vpro_test_all test_process )
-ADD_TEST( vpro_test_process_factory  vpro_test_all test_process_factory )
-ADD_TEST( vpro_test_delay_filter     vpro_test_all test_delay_filter )
-ADD_TEST( vpro_test_storage          vpro_test_all test_storage )
+ADD_TEST( vpro_test_process          ${EXECUTABLE_OUTPUT_PATH}/vpro_test_all test_process )
+ADD_TEST( vpro_test_process_factory  ${EXECUTABLE_OUTPUT_PATH}/vpro_test_all test_process_factory )
+ADD_TEST( vpro_test_delay_filter     ${EXECUTABLE_OUTPUT_PATH}/vpro_test_all test_delay_filter )
+ADD_TEST( vpro_test_storage          ${EXECUTABLE_OUTPUT_PATH}/vpro_test_all test_storage )
 
 
 ADD_EXECUTABLE( vpro_test_include test_include.cxx )
