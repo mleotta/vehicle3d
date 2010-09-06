@@ -25,21 +25,21 @@ IF(wxWidgets_FOUND)
       gnd_cal_tableau.h      gnd_cal_tableau.cxx      gnd_cal_tableau_sptr.h
       
       # Resouce files
-      default.parts
-      default1.pca
-      default2.pca
-      default3.pca
-      default_dodec.pca
-      default_ferryman.pca
+      ../data/default.parts
+      ../data/default1.pca
+      ../data/default2.pca
+      ../data/default3.pca
+      ../data/default_dodec.pca
+      ../data/default_ferryman.pca
     )
     
     SET_SOURCE_FILES_PROPERTIES(
-      default.parts
-      default1.pca
-      default2.pca
-      default3.pca
-      default_dodec.pca
-      default_ferryman.pca
+      ../data/default.parts
+      ../data/default1.pca
+      ../data/default2.pca
+      ../data/default3.pca
+      ../data/default_dodec.pca
+      ../data/default_ferryman.pca
       PROPERTIES
       MACOSX_PACKAGE_LOCATION Resources
     )
@@ -51,17 +51,17 @@ IF(wxWidgets_FOUND)
       INCLUDE_DIRECTORIES(/System/Library/Frameworks/CoreFoundation.framework/Headers/)
     else (APPLE)
       # copy the default files to the binary directory
-      CONFIGURE_FILE( ${pca_vehicle_wxgui_SOURCE_DIR}/default1.pca
+      CONFIGURE_FILE( ${vehicle_SOURCE_DIR}/data/default1.pca
                       ${RUNTIME_OUTPUT_DIRECTORY}/default1.pca COPY_ONLY )
-      CONFIGURE_FILE( ${pca_vehicle_wxgui_SOURCE_DIR}/default2.pca
+      CONFIGURE_FILE( ${vehicle_SOURCE_DIR}/data/default2.pca
                       ${RUNTIME_OUTPUT_DIRECTORY}/default2.pca COPY_ONLY )
-      CONFIGURE_FILE( ${pca_vehicle_wxgui_SOURCE_DIR}/default3.pca
+      CONFIGURE_FILE( ${vehicle_SOURCE_DIR}/data/default3.pca
                       ${RUNTIME_OUTPUT_DIRECTORY}/default3.pca COPY_ONLY )
-      CONFIGURE_FILE( ${pca_vehicle_wxgui_SOURCE_DIR}/default_dodec.pca
+      CONFIGURE_FILE( ${vehicle_SOURCE_DIR}/data/default_dodec.pca
                       ${RUNTIME_OUTPUT_DIRECTORY}/default_dodec.pca COPY_ONLY )
-      CONFIGURE_FILE( ${pca_vehicle_wxgui_SOURCE_DIR}/default_ferryman.pca
+      CONFIGURE_FILE( ${vehicle_SOURCE_DIR}/data/default_ferryman.pca
                       ${RUNTIME_OUTPUT_DIRECTORY}/default_ferryman.pca COPY_ONLY )
-      CONFIGURE_FILE( ${pca_vehicle_wxgui_SOURCE_DIR}/default.parts
+      CONFIGURE_FILE( ${vehicle_SOURCE_DIR}/data/default.parts
                       ${RUNTIME_OUTPUT_DIRECTORY}/default.parts COPY_ONLY )
     endif (APPLE)
 
