@@ -2,6 +2,10 @@ This software is the implementation accompanying the Ph.D. thesis of Matthew J.
 Leotta, "Generic, Deformable Models for 3-D Vehicle Surveillance", Brown
 University, May 2010.
 
+For more information please visit the project website:
+http://www.lems.brown.edu/~mleotta/project/defvehicle3d.php
+This website has links to download the thesis and datasets used in the thesis.
+
 
 Top level directory structure:
 
