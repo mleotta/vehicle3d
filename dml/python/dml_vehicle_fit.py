@@ -13,14 +13,24 @@ import os.path
 import getopt, sys
 from math import *
 
+# set path to Brown Multiview Vehicle dataset
+brown_multiview_vehicles_path = "/path/to/brown_multiview_vehicles/"
 
-img_path = "/Users/mleotta/research/projects/carshape/real_images/have_model/"
-pca_path = "/projects/lems/src/contrib/mleotta/gui/pca_vehicle/"
-geom_path = "/Users/mleotta/research/projects/carshape/blender/vehicles/training/"
-results_path = "/Users/mleotta/research/projects/carshape/experiments/"
-video_path = "/Users/mleotta/data/video/"
-rand_pose_path = "/Users/mleotta/research/projects/carshape/run_experiments/rand_pose.txt"
-rand_gnd_pose_path = "/Users/mleotta/research/projects/carshape/run_experiments/rand_gnd_pose.txt"
+# set path to Brown Traffic Video dataset
+brown_traffic_video_path = "/path/to/brown_traffic_video/"
+
+# set path to E3D ground truth models (not yet approved for public release)
+E3D_geom_path = ""
+
+# set path to the PCA vehicle models
+pca_path = "/path/to/vehicle3d/data/"
+
+# set path to right out results of experiments
+results_path = "./"
+
+# paths to precomputed random initial poses
+rand_pose_path = "./rand_pose.txt"
+rand_gnd_pose_path = "./rand_gnd_pose.txt"
 
 
 # dictionary of vehicle ground truth models
@@ -28,55 +38,42 @@ truth_model = {"Dodge_Stratus"    : "sedan4/Dodge_Stratus_99_E3D_ver1",
                "VW_Beetle_yellow" : "sedan2/VW_Beetle_1998_E3D_ver1",
                "VW_Beetle_black"  : "sedan2/VW_Beetle_1998_E3D_ver1",
                "Dodge_Caravan"    : "/minivan/Dodge_Caravan_96_E3D_ver1",
-               #"Volvo_V40"        : "wagon/Volvo_V40_w_Interior_2000_E3D_ver1",
                "Volvo_V70XC_blue" : "wagon/Volvo_V70XC_w_Undercarriage_01_E3D_ver1",
-               #"Volvo_V70XC_gray" : "wagon/Volvo_V70XC_w_Undercarriage_01_E3D_ver1",
                "Toyota_4Runner"   : "suv/Toyota_4Runner_1999_E3D_ver1",
                "Chevy_S10_Blazer" : "suv/Chevy_S10_Blazer_1998_ED3_ver1",
                "Toyota_Tundra"    : "pickup/Toyota_Tundra_w_Subframe_Pickup_2000_E3D_ver1",
-               "Nissan_Maxima"    : "sedan4/Nissan_Maxima_GLE_99_E3D_ver1",
-               # --- below here there are no corresponding image sets ---
-               "PT_Cruiser"       : "sedan4/Chrysler_PT_Cruiser_2001_E3D_ver1",
-               "VW_Beetle"        : "sedan2/VW_Beetle_1998_E3D_ver1",
-               "MarkII"           : "sedan4/Toyota_Mark_II_w_Interior_97_E3D_ver1",
-               "Trailblazer"      : "suv/Chevy_Trailblazer_2001_E3D_ver1",
-               "Grand_Cherokee"   : "suv/Jeep_Grand_Cherokee_94_E3D_ver1",
-               "Cavalier98"       : "sedan2/Chevy_Cavalier_98_2DR_E3D_ver1",
-               "Catera"           : "sedan4/Cadillac_Catera_99_E3D_ver1",
-               "Grand_Caravan"    : "minivan/Dodge_Grand_Caravan_ES_2001_E3D_ver1"}
+               "Nissan_Maxima"    : "sedan4/Nissan_Maxima_GLE_99_E3D_ver1"}
 
 # dictionary of vehicle image paths
 v_img_path = {"Dodge_Stratus"    : "sedan4/Dodge_Stratus_99/",
               "VW_Beetle_yellow" : "sedan2/VW_Beetle_1998/yellow/",
               "VW_Beetle_black"  : "sedan2/VW_Beetle_1998/black/",
               "Dodge_Caravan"    : "minivan/Dodge_Caravan_96/",
-              #"Volvo_V40"        : "wagon/Volvo_V40_2000/",
               "Volvo_V70XC_blue" : "wagon/Volvo_V70XC_01/blue/",
-              #"Volvo_V70XC_gray" : "wagon/Volvo_V70XC_01/gray/",
               "Toyota_4Runner"   : "suv/Toyota_4Runner_1999/",
               "Chevy_S10_Blazer" : "suv/Chevy_S10_Blazer_1998/",
               "Toyota_Tundra"    : "pickup/Toyota_Tundra_2000/",
               "Nissan_Maxima"    : "sedan4/Nissan_Maxima_GLE_99/gray/"}
-              
+
 # dictionary of model type postfixes
 truth_postfix = {"Dodecahedral"  : "_dodec.obj",
                  "Ferryman"      : "_ferryman.obj",
                  "Detailed1"     : "_m1.obj",
                  "Detailed2"     : "_m2.obj",
                  "Detailed3"     : "_m3.obj"}
-                 
+
 # dictionary of videos
-video_files = {"westin" : "westin/7_6_06/raw/people_full.avi",
-               "brook"  : "intersections/2_26_09/brook_george.avi",
-               "waterman": "intersections/7_10_09/waterman_brown.avi",
-               "waterman2": "intersections/7_10_09/waterman_brown.avi"}
-          
+video_files = {"ground_view"    : "ground_view.avi",
+               "pole_view_far"  : "pole_view.avi",
+               "pole_view_near" : "pole_view.avi",
+               "aerial_view"    : "aerial_view.avi"}
+
 # dictionary of videos camera
-video_cameras = {"westin" : "westin/7_6_06/raw/people_full.cam",
-                 "brook"  : "intersections/2_26_09/brook_george.cam",
-                 "waterman": "intersections/7_10_09/waterman_brown_s.cam",
-                 "waterman2": "intersections/7_10_09/waterman_brown_s_old.cam"}
-                 
+video_cameras = {"ground_view"    : "ground_view.cam",
+                 "pole_view_far"  : "pole_view_far.cam",
+                 "pole_view_near" : "pole_view_near.cam",
+                 "aerial_view"    : "aerial_view.cam"}
+
 # vector of image scale paths
 img_scale = ["", "halfsize/", "quartersize/", "eighthsize/", "sixteenthsize/", "32ndsize/"]
 
@@ -84,12 +81,12 @@ img_scale = ["", "halfsize/", "quartersize/", "eighthsize/", "sixteenthsize/", "
 # load the ground truth model
 def load_truth(vehicle):
   print "--loading ground truth mesh--"
-  py_dml.set_truth_mesh(geom_path+truth_model[vehicle]+"_m3.obj") 
+  py_dml.set_truth_mesh(E3D_geom_path+truth_model[vehicle]+"_m3.obj")
 
 # load the image and camera data from files
 def load_data(vehicle, s, views):
   print "--loading images and cameras--"
-  curr_img_path = img_path+v_img_path[vehicle]
+  curr_img_path = brown_multiview_vehicles_path + v_img_path[vehicle]
   opened = []
   py_dml.reset_views()
   for i in views:
@@ -103,14 +100,14 @@ def load_data(vehicle, s, views):
     else:
       break
   return opened
-  
+
 # load video data
 def load_video_data(video):
   print "--loading video and camera--"
   py_dml.set_fit_mode("video")
   py_dml.reset_views()
-  vid_file = video_path+video_files[video]
-  cam_file = video_path+video_cameras[video]
+  vid_file = brown_traffic_video_path + video_files[video]
+  cam_file = brown_traffic_video_path + video_cameras[video]
   if os.path.isfile(vid_file) and os.path.isfile(cam_file):
     print ' ', vid_file
     py_dml.set_video(vid_file)
@@ -120,7 +117,7 @@ def load_video_data(video):
     print vid_file
     print cam_file
 
-  
+
 # load the random pose initialization
 def load_rand_pose(pose_path):
   file = open(pose_path,'r')
@@ -140,7 +137,7 @@ def load_rand_pose(pose_path):
 def fit(R,t,pc):
   py_dml.set_translation(t)
   py_dml.set_rotation(R)
-  py_dml.set_params(pc) 
+  py_dml.set_params(pc)
   e0 = py_dml.compute_error()
   py_dml.set_lambda(1.0)
   py_dml.fit_model(50)
@@ -149,8 +146,8 @@ def fit(R,t,pc):
   R = py_dml.get_rotation()
   pc = py_dml.get_params()
   return ((e0,e1), R, t, pc)
-  
-  
+
+
 # write a line of results to the file
 def write_results(f, E, R, t, R2, t2, pc):
   f.write(repr(E[0])+' '+repr(E[1])+' ')
@@ -166,7 +163,7 @@ def write_results(f, E, R, t, R2, t2, pc):
 # fit the model with many sample points of initialization
 def fit_in_region(vehicle,scale,options,views):
   py_dml.set_options(options)
-  
+
   load_truth(vehicle)
   load_data(vehicle, scale,views)
   model = py_dml.get_vehicle_model()
@@ -182,7 +179,7 @@ def fit_in_region(vehicle,scale,options,views):
       write_results(f, E, R, t, R2, t2, pc)
 
   f.close()
-  
+
 def find_t_range(ti,thresh):
   R = (0,0,0)
   t = (0,0,0)
@@ -191,15 +188,15 @@ def find_t_range(ti,thresh):
     (E, R2, t2, pc) = fit(R,t,[])
     if E[1] > thresh:
       break
-  pmax = (i-1)/20.0 
+  pmax = (i-1)/20.0
   for i in range(1,41):
     t = t[:ti]+(-i/20.0,)+t[ti+1:]
     (E, R2, t2, pc) = fit(R,t,[])
     if E[1] > thresh:
-      break 
+      break
   pmin = (-i+1)/20.0
   return pmax-pmin
-  
+
 def find_R_range(Ri,thresh):
   R = (0,0,0)
   t = (0,0,0)
@@ -208,31 +205,31 @@ def find_R_range(Ri,thresh):
     (E, R2, t2, pc) = fit(R,t,[])
     if E[1] > thresh:
       break
-  pmax = i-1; 
+  pmax = i-1;
   for i in range(1,90):
     R = R[:Ri]+(-i*pi/180,)+R[Ri+1:]
     (E, R2, t2, pc) = fit(R,t,[])
     if E[1] > thresh:
-      break 
-  pmin = -i+1; 
+      break
+  pmin = -i+1;
   return pmax-pmin
-    
+
 # compute the data for the CVPR paper table
 def find_convergence(vehicle,scale,options,views):
   py_dml.set_options(options)
   load_truth(vehicle)
   opened = load_data(vehicle, scale, views)
   pc = py_dml.get_params()
-  
+
   R = (0,0,0)
   t = (0,0,0)
   (E, R2, t2, pc) = fit(R,t,[])
-    
+
   #EC = py_dml.compute_edgel_coverage(1.0)
   #cov_pct = float(EC[0]+EC[2])/(EC[1]+EC[3])*100.0;
   #print "coverage percent is", cov_pct
-  #return 
-  
+  #return
+
   rfile = results_path + vehicle + '_s'+str(scale)+'_v'+str(len(opened))+'_pc'+str(len(pc))
   if len(options) == 4:
     rfile += '_gnd'
@@ -242,154 +239,154 @@ def find_convergence(vehicle,scale,options,views):
   f.write("Options: "+str(options)+"\n")
   f.write("Scale: "+str(scale)+"\n")
   f.write("Views: "+str(opened)+"\n\n")
-  
+
   f.write("Error: "+str(E)+"\n")
   f.write("R: "+str(R2)+"\n")
   f.write("t: "+str(t2)+"\n")
   f.write("PC: "+str(pc)+"\n")
   #f.write("edgel coverage: "+str(EC)+" => "+str(cov_pct)+"\n")
-  
+
   t0_range = find_t_range(0, 0.1)
   t1_range = find_t_range(1, 0.1)
   t2_range = find_t_range(2, 0.1)
   f.write("t range: "+str(t0_range)+" ")
   f.write(str(t1_range)+" ")
   f.write(str(t2_range)+"\n")
-  
+
   R0_range = find_R_range(0, 0.1)
   R1_range = find_R_range(1, 0.1)
   R2_range = find_R_range(2, 0.1)
   f.write("R range: "+str(R0_range)+" ")
   f.write(str(R1_range)+" ")
   f.write(str(R2_range)+"\n")
-  
+
   f.close()
-  
-  
+
+
 # compute the fit with several predetermined random initial poses
 def fit_random_pose(vehicle,scale,options,views):
   py_dml.set_options(options)
   load_truth(vehicle)
   opened = load_data(vehicle, scale, views)
   pc = py_dml.get_params()
-  
+
   model_type = py_dml.get_vehicle_model()
   partsfile = ""
   if model_type[:-1] == "Detailed":
-    partsfile = geom_path+truth_model[vehicle]+'.parts'
+    partsfile = E3D_geom_path + truth_model[vehicle] + '.parts'
   print 'parts file = ', partsfile
-  py_dml.set_mesh(geom_path+truth_model[vehicle]+truth_postfix[model_type], partsfile)
+  py_dml.set_mesh(E3D_geom_path + truth_model[vehicle] + truth_postfix[model_type], partsfile)
   pc = py_dml.get_params("all")
   num_pc = options[-1]
-  print "pc = ", pc[:num_pc] 
-  
+  print "pc = ", pc[:num_pc]
+
   pose_path = rand_pose_path
   if len(options) == 4:
     pose_path = rand_gnd_pose_path
   poses = load_rand_pose(pose_path)
-  
+
   rfile = results_path + 'rand_' + vehicle + '_' +model_type + '_s'+str(scale)+'_v'+str(len(opened))+'_'+str(views[0])+'_pc'+str(num_pc)
   if len(options) == 4:
     rfile += '_gnd'
   print "Writing output to:", rfile+'.txt'
   f=open(rfile+'.txt','w')
-  
+
   R = (0,0,0)
   t = (0,0,0)
   py_dml.set_init_uncert(0.25)
   (E, R2, t2, pc) = fit(R,t,pc[:num_pc])
   write_results(f, E, R, t, R2, t2, pc)
-  
+
   py_dml.set_init_uncert(1.0)
   for pose in poses:
     t = pose[0:3]
     R = pose[3:6]
     (E, R2, t2, pc) = fit(R,t,[])
     write_results(f, E, R, t, R2, t2, pc)
-  
+
   f.close()
-  
-  
+
+
 # compute the data for the CVPR paper table
 def make_svg(vehicle,scale,options,views):
   py_dml.set_options(options)
   opened = load_data(vehicle, scale, views)
   pc = py_dml.get_params()
-  
+
   R = (0,0,0)
   t = (0,0,0)
   py_dml.set_translation(t)
   py_dml.set_rotation(R)
-  py_dml.set_params([]) 
+  py_dml.set_params([])
   py_dml.set_lambda(1.0)
   py_dml.fit_model(50)
-      
+
   rfile = results_path + vehicle + '_s'+str(scale)+'_v'+str(len(opened))+'_pc'+str(len(pc))
   if len(options) == 4:
-    rfile += '_gnd'  
+    rfile += '_gnd'
   py_dml.write_svg_curves(views[0],rfile+'_'+str(opened[0]+1)+'.svg')
-  
-  
+
+
 # compute error for each number of params 0-15
 def find_best_num_params(vehicle,scale):
   load_truth(vehicle)
   opened = load_data(vehicle, scale, range(10))
   model_type = py_dml.get_vehicle_model()
-  py_dml.set_mesh(geom_path+truth_model[vehicle]+truth_postfix[model_type])
+  py_dml.set_mesh(E3D_geom_path + truth_model[vehicle] + truth_postfix[model_type])
   pc = py_dml.get_params("all")
   options = ['tx','ty','tz','rx','ry','rz']# ['tx','ty','rz']
-  
+
   py_dml.set_params([])
   E = []
   for i in range(min(len(pc),16)):
     py_dml.set_options(options+[i])
     py_dml.set_translation((0,0,0))
     py_dml.set_rotation((0,0,0))
-    py_dml.set_params([])#pc[:i]) 
+    py_dml.set_params([])#pc[:i])
 
     py_dml.set_lambda(1.0)
     py_dml.fit_model(50)
     E.append(py_dml.compute_error())
   return E
 
-  
+
 # compute error for each number of params 1-20
 def find_best_num_params_all(scale,model_type):
   E = []
   for v in sorted(truth_model.keys()):
     print "running on ", v
     E.append(find_best_num_params(v,scale))
-    
+
   rfile = results_path + 'num_pca' + '_s'+str(scale)+'_'+model_type+'.txt'
   print "Writting output to:", rfile
   f=open(rfile,'w')
-  
+
   names = sorted(truth_model.keys());
   for i in range(len(E)):
     f.write(names[i]+" ")
     for j in E[i]:
       f.write(str(j)+" ")
     f.write("\n");
-    
-    
+
+
 # running tracking in video
 def track_vehicles(vehicle,video,sf,nf,options,model_type,track_with_silhouette):
   load_video_data(video)
   py_dml.set_options(options)
   py_dml.set_track_with_silhouette(track_with_silhouette)
   print "setting track with silhouette ",track_with_silhouette
-  
+
   num_pc = options[-1]
-  
+
   if num_pc == 0:
     model_type = py_dml.get_vehicle_model()
     partsfile = ""
     if model_type[:-1] == "Detailed":
-      partsfile = geom_path+truth_model[vehicle]+'.parts'
+      partsfile = E3D_geom_path + truth_model[vehicle] + '.parts'
     print 'parts file = ', partsfile
-    py_dml.set_mesh(geom_path+truth_model[vehicle]+truth_postfix[model_type], partsfile)
+    py_dml.set_mesh(E3D_geom_path + truth_model[vehicle] + truth_postfix[model_type], partsfile)
     pc = py_dml.get_params("all")
-  
+
   gnd = ''
   if len(options)==4:
     gnd = '_gnd'
@@ -400,9 +397,9 @@ def track_vehicles(vehicle,video,sf,nf,options,model_type,track_with_silhouette)
   f=open(rfile,'w')
   f.write(model_type+'\n')
   f.write(str(sf)+'\n')
-  f.write(video_path+video_files[video]+'\n')
-  f.write(video_path+video_cameras[video]+'\n')
-  
+  f.write(brown_traffic_video_path + video_files[video]+'\n')
+  f.write(brown_traffic_video_path + video_cameras[video]+'\n')
+
   # prime the BG model with 100 frames
   num_bg_prime = 100
   py_dml.enable_tracking(False)
@@ -413,7 +410,7 @@ def track_vehicles(vehicle,video,sf,nf,options,model_type,track_with_silhouette)
     print "Current Frame: ",py_dml.get_current_frame()
     py_dml.advance_video()
   py_dml.enable_tracking(True)
-  
+
   for i in range(nf):
     py_dml.advance_video()
     frame = py_dml.get_current_frame()
@@ -421,7 +418,7 @@ def track_vehicles(vehicle,video,sf,nf,options,model_type,track_with_silhouette)
     states = py_dml.get_vehicle_states()
     if not states:
       continue
-    
+
     for st in states:
       f.write(str(frame)+' ')
       f.write(str(st['id'])+' ')
@@ -436,8 +433,8 @@ def track_vehicles(vehicle,video,sf,nf,options,model_type,track_with_silhouette)
         f.write(str(p)+' ')
       f.write('\n')
 
-    
-    
+
+
 # sample the residual surface for later plotting
 def residual_surface(vehicle,scale,views):
     opened = load_data(vehicle, scale, views)
@@ -446,14 +443,14 @@ def residual_surface(vehicle,scale,views):
     py_dml.set_rotation((0,0,0))
     py_dml.set_params([])
     model_type = py_dml.get_vehicle_model()
-    
+
     img_scale = 8.0;
-    
+
     rfile = results_path + 'rsurf_'+vehicle+'_'+model_type+'_s'+str(scale)+'_is'+str(int(img_scale))+'.txt'
     print "Writting output to:", rfile
     f=open(rfile,'w')
     res = py_dml.evaluate_residual(img_scale,True)
-    
+
     r1 = range(-50,51)
     for i in r1:
       for j in r1:
@@ -463,13 +460,13 @@ def residual_surface(vehicle,scale,views):
         f.write(str(res)+' ')
       f.write('\n')
     f.close()
-    
-    
+
+
 # compute edge coverage
 def edge_coverage(vehicle,scale,views):
   opened = load_data(vehicle, scale, views)
-  py_dml.set_mesh(geom_path+truth_model[vehicle]+"_poly.obj","poly")
-  py_dml.set_parts(geom_path+truth_model[vehicle]+".parts")
+  py_dml.set_mesh(E3D_geom_path + truth_model[vehicle] + "_poly.obj","poly")
+  py_dml.set_parts(E3D_geom_path + geom_path + truth_model[vehicle]+".parts")
   E = []
   for i in range(40):
     (m1,m2,total) = py_dml.relative_coverage(float(i)/8.0)
@@ -477,7 +474,7 @@ def edge_coverage(vehicle,scale,views):
   for i in range(40):
     print E[i][0], E[i][1], E[i][2]
 
-  
+
 def init_dml(build_type):
   sys.path.append("/projects/lems/bin/"+build_type+"/lib/")
   global py_dml
@@ -485,7 +482,7 @@ def init_dml(build_type):
   if build_type == "Debug":
     print "Attach Debugger to", os.getpid()
     raw_input("Press Enter")
-  print "--loading mesh parts and PCA parameters--" 
+  print "--loading mesh parts and PCA parameters--"
   py_dml.set_vehicle_model("Dodecahedral")
   py_dml.set_pca(pca_path+"default_dodec.pca")
   py_dml.set_vehicle_model("Ferryman")
@@ -510,7 +507,7 @@ if __name__ == "__main__":
     print str(err) # will print error message
     usage()
     sys.exit(2)
-  
+
   # Defaults
   build_type = "Release"
   vehicle = "Dodge_Stratus"
@@ -553,14 +550,14 @@ if __name__ == "__main__":
       track_with_silhouette = True
     else:
       assert False, "unhandled option"
-      
-      
+
+
   init_dml(build_type)
-  
+
   options.append(num_pc)
   if not py_dml.set_vehicle_model(model_type):
     print "unable to set model type", model_type
-  
+
   #fit_in_region(vehicle, scale,views)
   if func == "Convergence":
     find_convergence(vehicle,scale,options,views)
