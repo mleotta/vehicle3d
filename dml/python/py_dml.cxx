@@ -559,7 +559,8 @@ static PyMethodDef py_dml_methods[] = {
   {"compute_edgel_coverage", compute_edgel_coverage, METH_VARARGS,
    "compute_edgel_coverage(d) computes number of curve point near edgels"},
   {"relative_coverage", relative_coverage, METH_VARARGS,
-   "relative_coverage(d) compare poly and mesh edge coverage"}
+   "relative_coverage(d) compare poly and mesh edge coverage"},
+  {NULL, NULL, 0, NULL}
 };
 
 
